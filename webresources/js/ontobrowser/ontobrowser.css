@@ -1,0 +1,59 @@
+/*
+ *
+ *      This file is part of the TriPhase project
+ *
+ *      Copyright Institut National de la Recherche Agronomique, 2013.
+ *
+ */
+
+/* styles for tree ontology browser */
+
+
+g.ontobrowser-tree .node rect.selectmarker {
+	cursor: cell;
+	fill: transparent;
+}
+
+g.ontobrowser-tree .node rect.selectedmarker {
+	stroke: blue;
+	stroke-width: 1px;
+}
+
+g.ontobrowser-tree .node rect.distribbox {
+	cursor: pointer;
+	fill: transparent;
+}
+
+g.ontobrowser-tree .node rect.distribbox:hover {
+	fill: lightsteelblue;
+	opacity: 0.3;
+}
+
+g.ontobrowser-tree .node path.distrib {
+	fill: #D0D0D0;
+	stroke: silver;
+	stroke-width: 1px;
+	opacity: 0.5;
+}
+
+g.ontobrowser-tree .node text {
+	font-size: 11px;
+}
+
+g.ontobrowser-tree path.link {
+	fill: none;
+	stroke: #ccc;
+	stroke-width: 3px;
+	stroke-opacity: 0.5;
+}
+
+g.ontobrowser-tree .conceptlabel {
+	cursor: cell;
+	font-family: sans-serif;
+}
+
+g.ontobrowser-tree .conceptlabel:hover {
+	font-weight: bold;
+	fill: blue;
+}
+

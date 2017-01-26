@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+AlvisIR UI configuration file template :
+
+* copy this file in a location accessible to your Application Server, and edit for your own configuration
+
+
+Note: 
+* Be careful when editing the config file, because changes are applied immediately since every UI query re-read the config file.
+
+-->
+<alvisir-ui-config>
+
+    <!-- MANDATORY: path to AlvisIR search configuration file -->
+    <alvisir-search filepath="/path/to/alvisir/search-config.xml" />
+    
+    <!-- Optional: path to an external alternate xslt stylesheet to transform XML in HTML -->
+    <!-- <alternate-stylesheet filepath="/path/to/alternate/xslt/stylesheet.xslt" /> -->
+    
+    <!-- Optional: path to an external extra css stylesheet -->
+    <!-- <extra-css filepath="/path/to/extra/stylesheet.css" /> -->
+        
+    <!-- Parameters used to set the xlst stylesheet variables value-->
+    <!-- Note : omit the "value" attribute to keep default variable value -->
+    <display-params>
+
+        <!-- HTML title (displayed in the browser windows header) --> 
+        <param name="title" value="AlvisIR OntoBioTest Search"/>
+        <!-- copyright infos, (displayed at the bottom of the html document) --> 
+        <param name="copyright-owner" value="INRA"/>
+        <param name="copyright-years" value="2013" />
+        
+        <!-- label of the button used to execute the query --> 
+        <param name="search-button-text"/>
+        
+        <param name="subpaths-header" value="Sub-concepts"/>
+        <param name="synonyms-header" value="Synonyms"/>
+
+        <!-- Snippet configuration -->
+        
+        <!-- field displayed as title of the snippet  --> 
+        <param name="title-field" value="title"/>
+        <!-- if those variables are set, the title will be an anchor whose href in the concatenation of the url-prefix and the field value -->
+        <param name="title-url-prefix" value="http://www.ncbi.nlm.nih.gov/pubmed/"/>
+        <param name="title-url-field" value="pmid"/>
+        
+        <!-- Optional dynamic anchors -->
+        <param name="outlink_1-image" value="../images/alvisae_ico.png"/>
+        <param name="outlink_1-hint" value="open the document in AlvisAE"/>
+        <param name="outlink_1-url-field" value="id"/>
+        <param name="outlink_1-url-prefix" value="http://bibliome.jouy.inra.fr/demo/alvisae/quaerobiotopes/AlvisAE/#docDisp:CampaignID=2&amp;TaskName=default-task&amp;DocumentID="/>
+
+        <param name="outlink_2-image" value="../images/globe-green.png"/>
+        <param name="outlink_2-hint"/>
+        <param name="outlink_2-url-field"/>
+        <param name="outlink_2-url-prefix"/>
+
+        <!--couples of optional fields and labels displayed below the snippet's title -->
+        <param name="doc-field_1" value="author"/>
+        <param name="doc-field_1-header" value="Authors"/>
+        <param name="doc-field_2" value="year"/>
+        <param name="doc-field_2-header" value=""/>
+        <param name="doc-field_3" value="journal"/>
+        <param name="doc-field_3-header" value=""/>
+        <param name="doc-field_4" value="abstract"/>
+        <param name="doc-field_4-header" value="Abstract"/>
+        <param name="doc-field_5" value=""/>
+        <param name="doc-field_5-header" value=""/>
+        
+        <!--optional document score label -->
+        <param name="doc-score-header" value=""/>
+        
+    </display-params>
+
+
+    <!-- path to the resources used by the UI -->
+    <resources>
+        <!-- Optional ontologies that can be browsed and used to refine the query -->
+        <!-- <ontology name="biotopes" filepath="/path/to//ontology.json" /> -->
+    </resources>
+    
+</alvisir-ui-config>
