@@ -1,241 +1,216 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" 
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd"
->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
-    <modelVersion>4.0.0</modelVersion>
+	<modelVersion>4.0.0</modelVersion>
 
-    <groupId>fr.jouy.inra.maiage.bibliome</groupId>
-    <artifactId>alvisir</artifactId>
-    <packaging>war</packaging>
-    
-    <version>0.5-SNAPSHOT</version>
-    <name>AlvisIR</name>
-    
-    <organization>
-      <name>Institut National de la Recherche Agronomique</name>
-      <url>http://mig.jouy.inra.fr/</url>
-    </organization>
+	<groupId>fr.jouy.inra.maiage.bibliome</groupId>
+	<artifactId>alvisir</artifactId>
+	<packaging>war</packaging>
 
-    <repositories>
-      <repository>
-	<id>bibliome</id>
-	<url>http://bibliome.jouy.inra.fr/maven-repository</url>
-      </repository>
-    </repositories>
+	<version>0.5-SNAPSHOT</version>
+	<name>AlvisIR</name>
 
-    <build>
-        <finalName>alvisir</finalName>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>2.5.1</version>
-                <inherited>true</inherited>
-                <configuration>
-                    <source>1.7</source>
-                    <target>1.7</target>
-                </configuration>
-            </plugin>
-			
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-war-plugin</artifactId>
-                <version>2.4</version>
-                <configuration>
-                  <warName>alvisir2-${project.version}</warName>
-                    <webResources>
-                        <resource>
-                            <directory>webresources</directory>
-                        </resource>
-                    </webResources>
-                    <archive>
-                        <manifestEntries>
-                            <app-version>${project.version}</app-version>
-                            <build-date>${maven.build.timestamp}</build-date>
-                        </manifestEntries>
-                    </archive>
-                </configuration>
-            </plugin>
-            
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>javacc-maven-plugin</artifactId>
-                <version>2.6</version>
-                <executions>
-                    <execution>
-                        <id>query-parser</id>
-                        <goals>
-                            <goal>javacc</goal> 
-                        </goals>
-                        <configuration>
-                            <includes>
-                                <include>QueryGrammar.jj</include>    
-                            </includes>
-                            <sourceDirectory>${query-parser}</sourceDirectory>
-                            <buildparser>true</buildparser>
-                            <buildtokenmanager>true</buildtokenmanager>
-                            <errorreporting>true</errorreporting>
-                            <keeplinecolumn>true</keeplinecolumn>
-                            <sanitycheck>true</sanitycheck>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-         
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-assembly-plugin</artifactId>
-                <version>2.4</version>
-                <configuration>
-                  <finalName>alvisir2-core-${project.version}</finalName>
-                    <appendAssemblyId>false</appendAssemblyId>
-                    <archive>
-                        <manifest>
-                            <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
-                            <mainClass>fr.inra.mig_bibliome.alvisir.core.AlvisIRCLI</mainClass>
-                        </manifest>
-                    </archive>
-                    <descriptors>
-                        <descriptor>src/assemble/distribution.xml</descriptor>
-                    </descriptors>
-                </configuration>
-            </plugin>
-            
-        </plugins>
-        <pluginManagement>
-        	<plugins>
-        		<!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
-        		<plugin>
-        			<groupId>org.eclipse.m2e</groupId>
-        			<artifactId>lifecycle-mapping</artifactId>
-        			<version>1.0.0</version>
-        			<configuration>
-        				<lifecycleMappingMetadata>
-        					<pluginExecutions>
-        						<pluginExecution>
-        							<pluginExecutionFilter>
-        								<groupId></groupId>
-        								<artifactId></artifactId>
-        								<versionRange>[,)</versionRange>
-        								<goals>
-        									<goal></goal>
-        								</goals>
-        							</pluginExecutionFilter>
-        							<action>
-        								<ignore></ignore>
-        							</action>
-        						</pluginExecution>
-        					</pluginExecutions>
-        				</lifecycleMappingMetadata>
-        			</configuration>
-        		</plugin>
-        	</plugins>
-        </pluginManagement>
-    </build>
+	<organization>
+		<name>Institut National de la Recherche Agronomique</name>
+		<url>http://mig.jouy.inra.fr/</url>
+	</organization>
 
-        <dependencyManagement>
-            <dependencies>
-                <!-- GF4.0 
-                <dependency>
-                        <groupId>org.glassfish.jersey</groupId>
-                        <artifactId>jersey-bom</artifactId>
-                        <version>${jersey.version}</version>
-                        <type>pom</type>
-                        <scope>import</scope>
-                </dependency>
-                -->
-            </dependencies>
-        </dependencyManagement>
+	<repositories>
+		<repository>
+			<id>bibliome</id>
+			<url>http://bibliome.jouy.inra.fr/maven-repository</url>
+		</repository>
+	</repositories>
+
+	<build>
+		<finalName>alvisir</finalName>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.5.1</version>
+				<inherited>true</inherited>
+				<configuration>
+					<source>1.7</source>
+					<target>1.7</target>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>2.4</version>
+				<configuration>
+					<warName>alvisir2-${project.version}</warName>
+					<webResources>
+						<resource>
+							<directory>webresources</directory>
+						</resource>
+					</webResources>
+					<archive>
+						<manifestEntries>
+							<app-version>${project.version}</app-version>
+							<build-date>${maven.build.timestamp}</build-date>
+						</manifestEntries>
+					</archive>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>javacc-maven-plugin</artifactId>
+				<version>2.6</version>
+				<executions>
+					<execution>
+						<id>query-parser</id>
+						<goals>
+							<goal>javacc</goal>
+						</goals>
+						<configuration>
+							<includes>
+								<include>QueryGrammar.jj</include>
+							</includes>
+							<sourceDirectory>${query-parser}</sourceDirectory>
+							<buildparser>true</buildparser>
+							<buildtokenmanager>true</buildtokenmanager>
+							<errorreporting>true</errorreporting>
+							<keeplinecolumn>true</keeplinecolumn>
+							<sanitycheck>true</sanitycheck>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<version>2.4</version>
+				<configuration>
+					<finalName>alvisir2-core-${project.version}</finalName>
+					<appendAssemblyId>false</appendAssemblyId>
+					<archive>
+						<manifest>
+							<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+							<mainClass>fr.inra.mig_bibliome.alvisir.core.AlvisIRCLI</mainClass>
+						</manifest>
+					</archive>
+					<descriptors>
+						<descriptor>src/assemble/distribution.xml</descriptor>
+					</descriptors>
+				</configuration>
+			</plugin>
+
+		</plugins>
+		<pluginManagement>
+			<plugins>
+				<!--This plugin's configuration is used to store Eclipse m2e settings 
+					only. It has no influence on the Maven build itself. -->
+				<plugin>
+					<groupId>org.eclipse.m2e</groupId>
+					<artifactId>lifecycle-mapping</artifactId>
+					<version>1.0.0</version>
+					<configuration>
+						<lifecycleMappingMetadata>
+							<pluginExecutions>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId></groupId>
+										<artifactId></artifactId>
+										<versionRange>[,)</versionRange>
+										<goals>
+											<goal></goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<ignore></ignore>
+									</action>
+								</pluginExecution>
+							</pluginExecutions>
+						</lifecycleMappingMetadata>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
 
 	<dependencies>
-            <dependency>
-                <groupId>fr.jouy.inra.maiage.bibliome</groupId>
-                <artifactId>bibliome-utils</artifactId>
-                <version>0.0.1-SNAPSHOT</version>
-            </dependency>
-            <dependency>
-                <groupId>org.obo</groupId>
-                <artifactId>obo</artifactId>
-                <version>UNKNOWN</version>
-            </dependency>
-            <dependency>
-                <groupId>org.bbop</groupId>
-                <artifactId>bbop</artifactId>
-                <version>UNKNOWN</version>
-            </dependency>
-            <dependency>
-                <groupId>com.googlecode.json-simple</groupId>
-                <artifactId>json-simple</artifactId>
-                <version>1.1</version>
-            </dependency>
-            
-        <dependency>
-            <groupId>org.apache.lucene</groupId>
-            <artifactId>lucene-core</artifactId>
-            <version>3.6.1</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.lucene</groupId>
-            <artifactId>lucene-queries</artifactId>
-            <version>3.6.1</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.lucene</groupId>
-            <artifactId>lucene-analyzers</artifactId>
-            <version>3.6.1</version>
-        </dependency>
-                
-        <dependency>
-            <groupId>commons-io</groupId>
-            <artifactId>commons-io</artifactId>
-            <version>1.4</version>
-            <type>jar</type>
-        </dependency>
-		
-        <!-- for GlassFish 4.0 -->
-        <!-- 
-        <dependency>
-                <groupId>org.glassfish.jersey.containers</groupId>
-                <artifactId>jersey-container-servlet-core</artifactId>
-                <version>2.1</version>		
-        </dependency>
-		
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>servlet-api</artifactId>
-            <version>2.5</version>
-            <type>jar</type>
-        </dependency>
-        -->
+		<dependency>
+			<groupId>fr.jouy.inra.maiage.bibliome</groupId>
+			<artifactId>bibliome-utils</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>org.obo</groupId>
+			<artifactId>obo</artifactId>
+			<version>UNKNOWN</version>
+		</dependency>
+		<dependency>
+			<groupId>org.bbop</groupId>
+			<artifactId>bbop</artifactId>
+			<version>UNKNOWN</version>
+		</dependency>
+		<dependency>
+			<groupId>com.googlecode.json-simple</groupId>
+			<artifactId>json-simple</artifactId>
+			<version>1.1</version>
+		</dependency>
 
-        <!-- for GlassFish 3.1 -->
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>servlet-api</artifactId>
-            <version>2.4</version>
-            <type>jar</type>
-        </dependency>
-		
-        <dependency>
-            <groupId>com.sun.jersey</groupId>
-            <artifactId>jersey-server</artifactId>
-            <version>1.11.1</version>
-        </dependency>
-        <dependency>
-            <groupId>org.codehaus.jackson</groupId>
-            <artifactId>jackson-core-asl</artifactId>
-            <version>1.9.12</version>
-            <type>jar</type>
-        </dependency>
+		<dependency>
+			<groupId>org.apache.lucene</groupId>
+			<artifactId>lucene-core</artifactId>
+			<version>3.6.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.lucene</groupId>
+			<artifactId>lucene-queries</artifactId>
+			<version>3.6.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.lucene</groupId>
+			<artifactId>lucene-analyzers</artifactId>
+			<version>3.6.1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>1.4</version>
+			<type>jar</type>
+		</dependency>
+
+		<!-- for GlassFish 4.0 -->
+		<!-- <dependency> <groupId>org.glassfish.jersey.containers</groupId> <artifactId>jersey-container-servlet-core</artifactId> 
+			<version>2.1</version> </dependency> <dependency> <groupId>javax.servlet</groupId> 
+			<artifactId>servlet-api</artifactId> <version>2.5</version> <type>jar</type> 
+			</dependency> -->
+
+		<!-- for GlassFish 3.1 -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
+			<version>2.4</version>
+			<type>jar</type>
+		</dependency>
+
+		<dependency>
+			<groupId>com.sun.jersey</groupId>
+			<artifactId>jersey-server</artifactId>
+			<version>1.11.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-core-asl</artifactId>
+			<version>1.9.12</version>
+			<type>jar</type>
+		</dependency>
 	</dependencies>
-	
-    <properties>
-        <!--  GF4.0 <jersey.version>2.0</jersey.version> -->
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        
-        <maven.build.timestamp.format>yyyy-MM-dd HH:mm:ss.SSS</maven.build.timestamp.format>
 
-        <query-parser>src/main/java/fr/inra/mig_bibliome/alvisir/core/query/parser</query-parser>
-    </properties>
+	<properties>
+		<!-- GF4.0 <jersey.version>2.0</jersey.version> -->
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+		<maven.build.timestamp.format>yyyy-MM-dd HH:mm:ss.SSS</maven.build.timestamp.format>
+
+		<query-parser>src/main/java/fr/inra/mig_bibliome/alvisir/core/query/parser</query-parser>
+	</properties>
 </project>

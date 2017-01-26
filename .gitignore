@@ -1,11 +1,6 @@
-bin
-alvisir2-core.jar
-alvisir.war
-bin
-eclipse-build
 expose-repository.sh
-lib
-maven-repository
 target
 WebContent
-
+.project
+.settings
+/bin/
