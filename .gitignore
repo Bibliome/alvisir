@@ -4,3 +4,4 @@ WebContent
 .project
 .settings
 /bin/
+.classpath
