@@ -185,6 +185,7 @@ public class SearchResult {
 		return expansionResult;
 	}
 
+	@SuppressWarnings("unused")
 	private void debugSnippets(String step) {
 		System.err.println(step);
 		for (DocumentSnippet docSnippet : docSnippets) {
@@ -294,19 +295,19 @@ public class SearchResult {
 		
 		// create snippets
 		createDocumentSnippets(searchConfig, topDocs);
-		debugSnippets("DOC SNIPS");
+		//debugSnippets("DOC SNIPS");
 		FieldValueBuilder fieldValueBuilder = new IndexFieldValueBuilder(indexSearcher.getIndexReader());
 		for (DocumentSnippet doc : docSnippets) {
 			fieldValueBuilder.fetchMandatoryFieldValues(searchConfig.getMandatoryFields(), doc);
 		}
-		debugSnippets("MANDATORY FIELDS");
+		//debugSnippets("MANDATORY FIELDS");
 		
 		// create highlights
 		for (MatchExplanation expl : expansionResult.getExplanations()) {
-//		    System.err.println("expl = " + expl);
+		    //System.err.println("expl = " + expl);
 			expl.createHighlights(index, searchConfig, docSnippets);
 		}
-		debugSnippets("HIGHLIGHTS");
+//		debugSnippets("HIGHLIGHTS");
 		
 		// select highlights
 		HighlightSelector selector = new HighlightSelector(searchConfig);
@@ -317,21 +318,21 @@ public class SearchResult {
 //			System.err.println("doc = " + doc);
 			for (String fieldName : fields) {
 				selector.selectHighlights(doc, fieldName);
-				debugSnippets("SELECTED " + doc + "/" + fieldName);
+//				debugSnippets("SELECTED " + doc + "/" + fieldName);
 				FragmentBuilder fb = fragmentBuilders.get(fieldName);
-				System.err.println("fieldName = " + fieldName);
-				System.err.println("fb = " + fb);
+//				System.err.println("fieldName = " + fieldName);
+//				System.err.println("fb = " + fb);
 				fb.createFragments(doc, fieldName);
-				debugSnippets("FRAGMENTS " + doc + "/" + fieldName);
+//				debugSnippets("FRAGMENTS " + doc + "/" + fieldName);
 			}
 			for (FieldSnippet field : doc.getFieldSnippets()) {
 				field.retainFragmentsWithSelectedHighlights();
 				field.retainHighlightsInFragments();
 			}
-			debugSnippets("PURGED HIGHLIGHTS");
+			//debugSnippets("PURGED HIGHLIGHTS");
 			doc.retainFieldSnippetsWithHighlights();
 		}
-		debugSnippets("PURGED");
+		//debugSnippets("PURGED");
 		
 		// get field values
 		for (DocumentSnippet docSnippet : docSnippets) {
