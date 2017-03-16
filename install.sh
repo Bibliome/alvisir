@@ -1,6 +1,6 @@
 #!/bin/bash
 
-LIB_FILES="target/alvisir2-core-0.5-SNAPSHOT.jar target/lib/bbop-UNKNOWN.jar target/lib/bibliome-utils-0.0.1-SNAPSHOT.jar target/lib/lucene-analyzers-3.6.1.jar target/lib/lucene-core-3.6.1.jar target/lib/lucene-queries-3.6.1.jar target/lib/obo-UNKNOWN.jar"
+LIB_FILES="alvisir-core/target/alvisir-core-0.5-SNAPSHOT.jar alvisir-core/target/lib/bbop-UNKNOWN.jar alvisir-core/target/lib/bibliome-utils-0.0.1-SNAPSHOT.jar alvisir-core/target/lib/lucene-analyzers-3.6.1.jar alvisir-core/target/lib/lucene-core-3.6.1.jar alvisir-core/target/lib/lucene-queries-3.6.1.jar alvisir-core/target/lib/obo-UNKNOWN.jar"
 
 INSTALL_DIR="$(readlink -m $1)"
 BIN_DIR="$INSTALL_DIR/bin"
