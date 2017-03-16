@@ -1,0 +1,110 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+  <modelVersion>4.0.0</modelVersion>
+  
+  <parent>
+    <groupId>fr.jouy.inra.maiage.bibliome</groupId>
+    <artifactId>alvisir</artifactId>
+    <version>0.5-SNAPSHOT</version>
+  </parent>
+  <artifactId>alvisir-web</artifactId>
+  <name>AlvisIR Web</name>
+  <version>0.5-SNAPSHOT</version>
+  <packaging>war</packaging>
+
+  <repositories>
+    <repository>
+      <id>bibliome</id>
+      <url>http://bibliome.jouy.inra.fr/maven-repository</url>
+    </repository>
+  </repositories>
+
+  <build>
+    <finalName>alvisir</finalName>
+    <plugins>
+      <plugin>
+	<groupId>org.apache.maven.plugins</groupId>
+	<artifactId>maven-compiler-plugin</artifactId>
+	<version>2.5.1</version>
+	<inherited>true</inherited>
+	<configuration>
+	  <source>1.7</source>
+	  <target>1.7</target>
+	</configuration>
+      </plugin>
+
+      <plugin>
+	<groupId>org.apache.maven.plugins</groupId>
+	<artifactId>maven-war-plugin</artifactId>
+	<version>2.4</version>
+	<configuration>
+	  <warName>alvisir2-${project.version}</warName>
+	  <webResources>
+	    <resource>
+	      <directory>webresources</directory>
+	    </resource>
+	  </webResources>
+	  <archive>
+	    <manifestEntries>
+	      <app-version>${project.version}</app-version>
+	      <build-date>${maven.build.timestamp}</build-date>
+	    </manifestEntries>
+	  </archive>
+	</configuration>
+      </plugin>
+    </plugins>
+  </build>
+
+  <dependencies>
+    <dependency>
+      <groupId>fr.jouy.inra.maiage.bibliome</groupId>
+      <artifactId>alvisir-core</artifactId>
+      <version>0.5-SNAPSHOT</version>
+    </dependency>
+
+    <dependency>
+      <groupId>commons-io</groupId>
+      <artifactId>commons-io</artifactId>
+      <version>1.4</version>
+      <type>jar</type>
+    </dependency>
+
+    <!-- for GlassFish 4.0 -->
+    <!-- <dependency> <groupId>org.glassfish.jersey.containers</groupId> <artifactId>jersey-container-servlet-core</artifactId> 
+	 <version>2.1</version> </dependency> <dependency> <groupId>javax.servlet</groupId> 
+	 <artifactId>servlet-api</artifactId> <version>2.5</version> <type>jar</type> 
+	 </dependency> -->
+
+    <!-- for GlassFish 3.1 -->
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>servlet-api</artifactId>
+      <version>2.4</version>
+      <type>jar</type>
+    </dependency>
+
+    <dependency>
+      <groupId>com.sun.jersey</groupId>
+      <artifactId>jersey-server</artifactId>
+      <version>1.11.1</version>
+    </dependency>
+    
+    <dependency>
+      <groupId>org.codehaus.jackson</groupId>
+      <artifactId>jackson-core-asl</artifactId>
+      <version>1.9.12</version>
+      <type>jar</type>
+    </dependency>
+  </dependencies>
+
+  <properties>
+    <!-- GF4.0 <jersey.version>2.0</jersey.version> -->
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+    <maven.build.timestamp.format>yyyy-MM-dd HH:mm:ss.SSS</maven.build.timestamp.format>
+
+    <query-parser>src/main/java/fr/inra/mig_bibliome/alvisir/core/query/parser</query-parser>
+  </properties>
+</project>
