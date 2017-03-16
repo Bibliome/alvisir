@@ -179,7 +179,7 @@ public class SearchConfigXMLSerializer {
 	private static Example readXMLExample(Element child) throws SearchConfigException {
 		ExampleCategory category = ExampleCategory.getCategory(child.getTagName());
 		if (category == null) {
-			throw new SearchConfigException("unlnown example category: " + child.getTagName());
+			throw new SearchConfigException("unknown example category: " + child.getTagName());
 		}
 		String queryString = child.getTextContent();
 		return new Example(category, queryString);
