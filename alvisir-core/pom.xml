@@ -22,7 +22,6 @@
   </repositories>
 
   <build>
-    <finalName>alvisir</finalName>
     <plugins>
       <plugin>
 	<groupId>org.codehaus.mojo</groupId>
