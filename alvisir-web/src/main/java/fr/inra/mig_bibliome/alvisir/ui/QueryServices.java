@@ -187,7 +187,7 @@ public class QueryServices {
     public String getBuildDateFromManifest() {
         if (buildDate == null) {
             try {
-                InputStream is = context.getResourceAsStream(ManifestResourcePath);
+                InputStream is = getClass().getResourceAsStream(ManifestResourcePath);
                 Properties props = new Properties();
                 props.load(is);
                 for (Map.Entry<Object, Object> entry : props.entrySet()) {
