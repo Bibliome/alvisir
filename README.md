@@ -49,11 +49,11 @@ The expander indexer reads resources for query expansion.
 
 ## Deploy
 
-Deploy the the `target/alvisir-web-0.5-SNAPSHOT.war` file in your favourite application container.
+Deploy the the `alvisir-web/target/alvisir-web-0.5-SNAPSHOT.war` file in your favourite application container.
 
 For instance, on *glassfish*, run:
 
-`asadmin deploy --contextroot CONTEXT --name NAME target/alvisir-web-0.5-SNAPSHOT.war`
+`asadmin deploy --contextroot CONTEXT --name NAME alvisir-web/target/alvisir-web-0.5-SNAPSHOT.war`
 
 ## Set context parameters
 
