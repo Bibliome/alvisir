@@ -9,11 +9,11 @@ AlvisIR semantic search engine
 
 # Download
 
-Clone the git repository or download from https://github.com/Bibliome/alvisnlp
+Clone the git repository or download from https://github.com/Bibliome/alvisir
 
 # Build and install from the package homedir
 
-`mvn clean assembly:assembly`
+`mvn clean package`
 
 # Command-line interface
 
@@ -21,7 +21,7 @@ Clone the git repository or download from https://github.com/Bibliome/alvisnlp
 
 `./install.sh DIR`
 
-*DIR* is the base directory of your AlvisNLP/ML install.
+*DIR* is the base directory of your AlvisIR install.
 
 ## Using the expander indexer
 
@@ -49,11 +49,11 @@ The expander indexer reads resources for query expansion.
 
 ## Deploy
 
-Deploy the the `target/alvisir2-0.5-SNAPSHOT.war` file in your favourite application container.
+Deploy the the `target/alvisir-web-0.5-SNAPSHOT.war` file in your favourite application container.
 
 For instance, on *glassfish*, run:
 
-`asadmin deploy --contextroot CONTEXT --name NAME target/alvisir2-0.5-SNAPSHOT.war`
+`asadmin deploy --contextroot CONTEXT --name NAME target/alvisir-web-0.5-SNAPSHOT.war`
 
 ## Set context parameters
 
@@ -65,4 +65,4 @@ Set the following context parameters:
 
 ## Use it
 
-From a browser open the URL of the AlvisNLP/ML application.
+From a browser open the URL `http[s]://HOST/CONTEXT/webapi/search`
