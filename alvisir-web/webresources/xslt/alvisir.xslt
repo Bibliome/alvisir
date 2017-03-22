@@ -484,7 +484,7 @@
     <!-- Document snippets -->
     <xsl:template match="doc">
         <div class="doc-snippet">
-            <div class="doc-header">
+            <div class="doc-header doc-field">
                 <xsl:if test="field[@name = $outlink_2-url-field]/fragment">
                     <div class="outlink">
                         <a target="_blank">
@@ -525,7 +525,7 @@
                 </span>
                 <xsl:choose>
                     <xsl:when test="$title-url-field!=''">
-                        <a class="doc-title">
+                        <a class="doc-title doc-field-fragments">
                             <xsl:attribute name="href">
                                 <xsl:value-of select="concat($title-url-prefix, field[@name = $title-url-field]/fragment)"/>
                             </xsl:attribute>
@@ -533,7 +533,7 @@
                         </a>
                     </xsl:when>
                     <xsl:otherwise>
-                        <span class="doc-title">
+                        <span class="doc-title doc-field-fragments">
                             <xsl:apply-templates select="field[@name = $title-field]/fragment"/>
                         </span>
                     </xsl:otherwise>
