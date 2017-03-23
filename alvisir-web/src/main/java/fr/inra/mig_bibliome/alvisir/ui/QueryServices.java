@@ -358,7 +358,7 @@ public class QueryServices {
             }
             try {
                 return Response
-                        .ok(new FileInputStream(cssPath), MediaType.TEXT_PLAIN)
+                        .ok(new FileInputStream(cssPath), "text/css")
                         //prevent caching of the extra CSS on the client
                         .expires(new Date())
                         .build();
