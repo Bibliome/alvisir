@@ -90,25 +90,10 @@
 	 <artifactId>servlet-api</artifactId> <version>2.5</version> <type>jar</type> 
 	 </dependency> -->
 
-    <!-- for GlassFish 3.1 -->
     <dependency>
       <groupId>javax.servlet</groupId>
-      <artifactId>servlet-api</artifactId>
-      <version>2.4</version>
-      <type>jar</type>
-    </dependency>
-
-    <dependency>
-      <groupId>com.sun.jersey</groupId>
-      <artifactId>jersey-server</artifactId>
-      <version>1.11.1</version>
-    </dependency>
-    
-    <dependency>
-      <groupId>org.codehaus.jackson</groupId>
-      <artifactId>jackson-core-asl</artifactId>
-      <version>1.9.12</version>
-      <type>jar</type>
+      <artifactId>javax.servlet-api</artifactId>
+      <version>3.0.1</version>
     </dependency>
 
     <dependency>
@@ -116,10 +101,23 @@
       <artifactId>jersey-servlet</artifactId>
       <version>${jersey.version}</version>
     </dependency>
+
+    <dependency>
+      <groupId>com.sun.jersey.contribs</groupId>
+      <artifactId>jersey-multipart</artifactId>
+      <version>${jersey.version}</version>
+    </dependency>
+
+    
+    <dependency>
+      <groupId>org.codehaus.jackson</groupId>
+      <artifactId>jackson-core-asl</artifactId>
+      <version>1.9.12</version>
+      <type>jar</type>
+    </dependency>
   </dependencies>
 
   <properties>
-    <!-- GF4.0 <jersey.version>2.0</jersey.version> -->
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <jersey.version>1.18</jersey.version>
     <maven.build.timestamp.format>yyyy-MM-dd HH:mm:ss.SSS</maven.build.timestamp.format>
