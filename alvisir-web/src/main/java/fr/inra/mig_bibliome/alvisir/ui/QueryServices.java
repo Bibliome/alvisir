@@ -344,7 +344,7 @@ public class QueryServices {
     }
 
     @GET
-    @Produces(MediaType.TEXT_PLAIN)
+    @Produces("text/css")
     @Path(Configuration.ExtraCSS_Path)
     /**
      * WebService used to retrieve the external extra CSS
