@@ -241,7 +241,7 @@ public class SearchResult {
 			Reader reader = new StringReader(queryString);
 			QueryParser parser = new QueryParser(reader);
 //			System.err.println("parsing query");
-			AlvisIRQueryNode queryNode = parser.query(searchConfig.getDefaultFieldName());
+			AlvisIRQueryNode queryNode = parser.query(searchConfig);
 			search(queryNode);
 		}
 		catch (ParseException e) {

@@ -5,6 +5,9 @@
 import java.util.ArrayList;
 import java.util.List;
 
+import fr.inra.mig_bibliome.alvisir.core.SearchConfig;
+
+import fr.inra.mig_bibliome.alvisir.core.query.AlvisIRQueryNodeReducer;
 import fr.inra.mig_bibliome.alvisir.core.query.AlvisIRAndQueryNode;
 import fr.inra.mig_bibliome.alvisir.core.query.AlvisIRAndQueryNode.Operator;
 import fr.inra.mig_bibliome.alvisir.core.query.AlvisIRNearQueryNode;
@@ -33,22 +36,22 @@ public class QueryParser {
 	(~["=","(",")","[","]","~"," ","\n","\t","\r","\""])
   | ("\\" ~[])
   )+ >}
-public AlvisIRQueryNode query(String defaultField):{
+public AlvisIRQueryNode query(SearchConfig searchConfig):{
   AlvisIRQueryNode result;}{
-  result=or(defaultField, false) < EOF >  { return AlvisIRQueryNodeReducer.reduce(result); }}
+  result=or(searchConfig, searchConfig.getDefaultFieldName(), false) < EOF >  { return AlvisIRQueryNodeReducer.reduce(result); }}
 
-private AlvisIRQueryNode or(String field, boolean near):{
+private AlvisIRQueryNode or(SearchConfig searchConfig, String field, boolean near):{
   AlvisIROrQueryNode result = new AlvisIROrQueryNode();
   AlvisIRQueryNode clause;
 }{
-  clause=and(field, near) { result.addClause(clause); } (< OR > clause=and(field, near) { result.addClause(clause); })*  { return result; }}
+  clause=and(searchConfig, field, near) { result.addClause(clause); } (< OR > clause=and(searchConfig, field, near) { result.addClause(clause); })*  { return result; }}
 
-private AlvisIRQueryNode and(String field, boolean near):
+private AlvisIRQueryNode and(SearchConfig searchConfig, String field, boolean near):
 {
   AlvisIRAndQueryNode result = new AlvisIRAndQueryNode();
   AlvisIRQueryNode clause;
   Operator op;}{
-  clause=field(field, near) { result.addClause(Operator.AND, clause); } (op=andOperator(near) clause=field(field, near) { result.addClause(op, clause); })*  { return result; }
+  clause=field(searchConfig, field, near) { result.addClause(Operator.AND, clause); } (op=andOperator(near) clause=field(searchConfig, field, near) { result.addClause(op, clause); })*  { return result; }
 }
 
 private Operator andOperator(boolean near):{}{
@@ -62,23 +65,23 @@ private Operator andOperator(boolean near):{}{
 | { return Operator.AND; }
 }
 
-private AlvisIRQueryNode field(String field, boolean near):{
+private AlvisIRQueryNode field(SearchConfig searchConfig, String field, boolean near):{
   AlvisIRQueryNode result;
 }{
   (LOOKAHEAD(2) field=text() < FIELD >  {
     if (near) {
-      throw new ParseException("field qualification is not allowed inside near queries");    }  })? result=near(field, near)  { return result; }}
+      throw new ParseException("field qualification is not allowed inside near queries");    }  })? result=near(searchConfig, field, near)  { return result; }}
 
-private AlvisIRQueryNode near(String field, boolean near):
+private AlvisIRQueryNode near(SearchConfig searchConfig, String field, boolean near):
 {
   AlvisIRQueryNode left;
   AlvisIRQueryNode right;
   int slop = -1;
   String relation = null;}{
-  left=atom(field, near)
+  left=atom(searchConfig, field, near)
   (
     < SLOP > (slop=number() | relation=strictText())
-    right=atom(field, true)
+    right=atom(searchConfig, field, true)
     {
       if (relation == null) {
 	    left = new AlvisIRNearQueryNode(field, slop, left, right);
@@ -91,16 +94,16 @@ private AlvisIRQueryNode near(String field, boolean near):
     })*
   { return left; }}
 
-private AlvisIRQueryNode atom(String field, boolean near):
+private AlvisIRQueryNode atom(SearchConfig searchConfig, String field, boolean near):
 {
   AlvisIRQueryNode result;
   AlvisIRPhraseQueryNode phraseQueryNode;
   String text;
 }{
-  < LPAREN > result=or(field, near) < RPAREN > { return result; }
+  < LPAREN > result=or(searchConfig, field, near) < RPAREN > { return result; }
 | text=text() { return QueryParserUtils.getTextQueryNode(field, text); }
 | < QUOTE > { phraseQueryNode = new AlvisIRPhraseQueryNode(field, 1); } (text=text() { phraseQueryNode.addText(text); })+ < QUOTE > { return phraseQueryNode; }
-| < LBRACKET > result=or(field, near) < RBRACKET > { return new AlvisIRNoExpansionQueryNode(result); }  
+| < LBRACKET > result=or(searchConfig, field, near) < RBRACKET > { return new AlvisIRNoExpansionQueryNode(result); }  
 }
 
 private String text():
