@@ -11,7 +11,6 @@
   </parent>
   <artifactId>alvisir-core</artifactId>
   <name>AlvisIR Core</name>
-  <version>0.5-SNAPSHOT</version>
   <packaging>jar</packaging>
 
   <repositories>
@@ -30,19 +29,19 @@
 	<executions>
 	  <execution>
 	    <id>query-parser</id>
+	    <phase>generate-sources</phase>
 	    <goals>
 	      <goal>javacc</goal>
 	    </goals>
 	    <configuration>
-	      <includes>
-		<include>QueryGrammar.jj</include>
-	      </includes>
-	      <sourceDirectory>${query-parser}</sourceDirectory>
 	      <buildparser>true</buildparser>
 	      <buildtokenmanager>true</buildtokenmanager>
 	      <errorreporting>true</errorreporting>
 	      <keeplinecolumn>true</keeplinecolumn>
 	      <sanitycheck>true</sanitycheck>
+	      <debugParser>false</debugParser>
+	      <sourceDirectory>src/main/java/fr/inra/mig_bibliome/alvisir/core/query/parser</sourceDirectory>
+	      <outputDirectory>${project.build.directory}/generated-sources/javacc</outputDirectory>
 	    </configuration>
 	  </execution>
 	</executions>
@@ -139,13 +138,8 @@
   </dependencies>
   
   <properties>
-    <!-- GF4.0 <jersey.version>2.0</jersey.version> -->
     <lucene.version>3.6.1</lucene.version>
-
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-
     <maven.build.timestamp.format>yyyy-MM-dd HH:mm:ss.SSS</maven.build.timestamp.format>
-
-    <query-parser>src/main/java/fr/inra/mig_bibliome/alvisir/core/query/parser</query-parser>
   </properties>
 </project>
