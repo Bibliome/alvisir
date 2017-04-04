@@ -4,8 +4,13 @@
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Collection;
+import java.util.Collections;
 
+import fr.inra.mig_bibliome.alvisir.core.AlvisIRIndex;
 import fr.inra.mig_bibliome.alvisir.core.SearchConfig;
+import fr.inra.mig_bibliome.alvisir.core.index.IndexGlobalAttributes;
 
 import fr.inra.mig_bibliome.alvisir.core.query.AlvisIRQueryNodeReducer;
 import fr.inra.mig_bibliome.alvisir.core.query.AlvisIRAndQueryNode;
@@ -77,8 +82,23 @@ private AlvisIRQueryNode near(SearchConfig searchConfig, String field, boolean n
   AlvisIRQueryNode left;
   AlvisIRQueryNode right;
   int slop = -1;
-  String relation = null;}{
+  String relation = null;  AlvisIRIndex index = searchConfig.getIndex();
+  IndexGlobalAttributes globalAttributes = index.getGlobalAttributes();
+  Map<String,String[]> relationInfo = globalAttributes.getRelationInfo();
+  Collection<String> allowedRelations = relationInfo == null ? Collections.EMPTY_LIST : relationInfo.keySet();
+}{
   left=atom(searchConfig, field, near)
+  (
+    LOOKAHEAD({
+      getToken(1).kind == TEXT && allowedRelations.contains(QueryParserUtils.normalizeRelationName(getToken(1).image))
+    })
+    relation=strictText()    right=atom(searchConfig, field, true)
+    {
+	  relation = QueryParserUtils.normalizeRelationName(relation);
+	  left = new AlvisIRRelationQueryNode(field, relation, left, right);
+    }
+  )?
+  /*
   (
     < SLOP > (slop=number() | relation=strictText())
     right=atom(searchConfig, field, true)
@@ -91,7 +111,8 @@ private AlvisIRQueryNode near(SearchConfig searchConfig, String field, boolean n
 	    left = new AlvisIRRelationQueryNode(field, relation, left, right);
 	  }
 	  relation = null;
-    })*
+    })?
+    */
   { return left; }}
 
 private AlvisIRQueryNode atom(SearchConfig searchConfig, String field, boolean near):
