@@ -3,5 +3,5 @@ target
 WebContent
 .project
 .settings
-/bin/
 .classpath
+test/
