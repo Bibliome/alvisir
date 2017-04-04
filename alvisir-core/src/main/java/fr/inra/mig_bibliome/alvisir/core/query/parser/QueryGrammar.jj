@@ -80,10 +80,13 @@ private AlvisIRQueryNode near(String field, boolean near):
     < SLOP > (slop=number() | relation=strictText())
     right=atom(field, true)
     {
-      if (relation == null)
+      if (relation == null) {
 	    left = new AlvisIRNearQueryNode(field, slop, left, right);
-	  else
+	  }
+	  else {
+	    relation = QueryParserUtils.normalizeRelationName(relation);
 	    left = new AlvisIRRelationQueryNode(field, relation, left, right);
+	  }
 	  relation = null;
     })*
   { return left; }}

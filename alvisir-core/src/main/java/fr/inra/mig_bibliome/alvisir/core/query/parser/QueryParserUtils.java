@@ -89,4 +89,17 @@ public class QueryParserUtils {
 	public static boolean isSpecialCharacter(char c) {
 		return Character.isWhitespace(c) || SPECIAL_CHARACTERS.contains(c);
 	}
+	
+	public static String normalizeRelationName(String name) {
+		StringBuilder sb = new StringBuilder(name.length());
+		for (int i = 0; i < name.length(); ++i) {
+			char c = name.charAt(i);
+			if (Character.isWhitespace(c) || c == '_' || c == '-') {
+				continue;
+			}
+			c = Character.toLowerCase(c);
+			sb.append(c);
+		}
+		return sb.toString();
+	}
 }
