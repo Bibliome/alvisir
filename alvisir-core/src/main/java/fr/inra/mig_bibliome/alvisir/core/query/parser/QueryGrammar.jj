@@ -88,7 +88,7 @@ private AlvisIRQueryNode nearContinuation(SearchConfig searchConfig, String fiel
 {
   AlvisIRQueryNode right;
   int slop = -1;
-  String relation1;
+  String relation1 = null;
   String relation2;
   AlvisIRIndex index = searchConfig.getIndex();
   IndexGlobalAttributes globalAttributes = index.getGlobalAttributes();
@@ -113,10 +113,13 @@ private AlvisIRQueryNode nearContinuation(SearchConfig searchConfig, String fiel
 	relation1 = QueryParserUtils.normalizeRelationName(relation1);
 	return new AlvisIRRelationQueryNode(field, relation1, left, right);
   }
-  
-| < SLOP > slop=number() right=atom(searchConfig, field, true)
+
+| < SLOP > (slop=number() | relation1=strictText()) right=atom(searchConfig, field, true)
   {
-    return new AlvisIRNearQueryNode(field, slop, left, right);
+    if (relation1 == null) {
+      return new AlvisIRNearQueryNode(field, slop, left, right);
+    }
+    return new AlvisIRRelationQueryNode(field, relation1, left, right);
   }
 
 | { return left; }
