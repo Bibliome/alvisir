@@ -79,41 +79,48 @@ private AlvisIRQueryNode field(SearchConfig searchConfig, String field, boolean 
 
 private AlvisIRQueryNode near(SearchConfig searchConfig, String field, boolean near):
 {
-  AlvisIRQueryNode left;
+  AlvisIRQueryNode result;
+}{
+  result=atom(searchConfig, field, near) result=nearContinuation(searchConfig, field, near, result)
+  { return result; }}
+
+private AlvisIRQueryNode nearContinuation(SearchConfig searchConfig, String field, boolean near, AlvisIRQueryNode left):
+{
   AlvisIRQueryNode right;
   int slop = -1;
-  String relation = null;  AlvisIRIndex index = searchConfig.getIndex();
+  String relation1;
+  String relation2;
+  AlvisIRIndex index = searchConfig.getIndex();
   IndexGlobalAttributes globalAttributes = index.getGlobalAttributes();
   Map<String,String[]> relationInfo = globalAttributes.getRelationInfo();
   Collection<String> allowedRelations = relationInfo == null ? Collections.EMPTY_LIST : relationInfo.keySet();
-}{
-  left=atom(searchConfig, field, near)
-  (
-    LOOKAHEAD({
-      getToken(1).kind == TEXT && allowedRelations.contains(QueryParserUtils.normalizeRelationName(getToken(1).image))
-    })
-    relation=strictText()    right=atom(searchConfig, field, true)
-    {
-	  relation = QueryParserUtils.normalizeRelationName(relation);
-	  left = new AlvisIRRelationQueryNode(field, relation, left, right);
-    }
-  )?
-  /*
-  (
-    < SLOP > (slop=number() | relation=strictText())
-    right=atom(searchConfig, field, true)
-    {
-      if (relation == null) {
-	    left = new AlvisIRNearQueryNode(field, slop, left, right);
-	  }
-	  else {
-	    relation = QueryParserUtils.normalizeRelationName(relation);
-	    left = new AlvisIRRelationQueryNode(field, relation, left, right);
-	  }
-	  relation = null;
-    })?
-    */
-  { return left; }}
+}
+{
+  LOOKAHEAD({
+    getToken(1).kind == TEXT && getToken(2).kind == TEXT && allowedRelations.contains(QueryParserUtils.normalizeRelationName(getToken(1).image + getToken(2).image))
+  })
+  relation1=strictText() relation2=strictText() right=atom(searchConfig, field, true)
+  {
+	relation1 = QueryParserUtils.normalizeRelationName(relation1 + relation2);
+	return new AlvisIRRelationQueryNode(field, relation1, left, right);
+  }
+  
+| LOOKAHEAD({
+    getToken(1).kind == TEXT && allowedRelations.contains(QueryParserUtils.normalizeRelationName(getToken(1).image))
+  })
+  relation1=strictText() right=atom(searchConfig, field, true)
+  {
+	relation1 = QueryParserUtils.normalizeRelationName(relation1);
+	return new AlvisIRRelationQueryNode(field, relation1, left, right);
+  }
+  
+| < SLOP > slop=number() right=atom(searchConfig, field, true)
+  {
+    return new AlvisIRNearQueryNode(field, slop, left, right);
+  }
+
+| { return left; }
+}
 
 private AlvisIRQueryNode atom(SearchConfig searchConfig, String field, boolean near):
 {
