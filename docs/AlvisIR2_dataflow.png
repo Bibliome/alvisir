@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Redmine@MIGALE</title>
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="kWh8Y0d+RRO6S11Pxeuts+NT0IrUY9pVSjnRpCuZitmjhAtnMRWtwVKZpoy8op10PbsBqiMoflBpqA02i3Fgyw==" />
+<link rel='shortcut icon' href='/redmine/favicon.ico' />
+<link rel="stylesheet" media="all" href="/redmine/stylesheets/jquery/jquery-ui-1.11.0.css" />
+<link rel="stylesheet" media="all" href="/redmine/stylesheets/application.css" />
+
+<script src="/redmine/javascripts/jquery-1.11.1-ui-1.11.0-ujs-3.1.1.js"></script>
+<script src="/redmine/javascripts/application.js"></script>
+<script>
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+
+<!-- page specific tags -->
+</head>
+<body class="controller-account action-login">
+<div id="wrapper">
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/redmine/login">Sign in</a></li>
+<li><a class="register" href="/redmine/account/register">Register</a></li></ul>    </div>
+    
+    <ul><li><a class="home" href="/redmine/">Home</a></li>
+<li><a class="projects" href="/redmine/projects">Projects</a></li>
+<li><a class="help" href="http://www.redmine.org/guide">Help</a></li></ul></div>
+
+<div id="header">
+    <div id="quick-search">
+        <form action="/redmine/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        
+        <label for='q'>
+          <a accesskey="4" href="/redmine/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" />
+</form>        
+    </div>
+
+    <h1>Redmine@MIGALE</h1>
+
+</div>
+
+<div id="main" class="nosidebar">
+    <div id="sidebar">
+        
+        
+    </div>
+
+    <div id="content">
+        
+        
+<div id="login-form">
+<form action="/redmine/login" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="&#x2713;" /><input type="hidden" name="authenticity_token" value="v7KVlgMRtDf0jD/jINlinPbuapxN3lAAUyoFiDQvfWCNXuKSdXpc5RxexCBZkFJbKAa7vLqV9AVwu9kalMeXcg==" />
+<input type="hidden" name="back_url" value="http%3A%2F%2Fmigale.jouy.inra.fr%2Fredmine%2Fattachments%2Fdownload%2F1234%2FAlvisIR2_dataflow.png" />
+<table>
+<tr>
+    <td style="text-align:right;"><label for="username">Login:</label></td>
+    <td style="text-align:left;"><input type="text" name="username" id="username" tabindex="1" /></td>
+</tr>
+<tr>
+    <td style="text-align:right;"><label for="password">Password:</label></td>
+    <td style="text-align:left;"><input type="password" name="password" id="password" tabindex="2" /></td>
+</tr>
+<tr>
+    <td></td>
+    <td style="text-align:left;">
+    </td>
+</tr>
+<tr>
+    <td style="text-align:left;">
+            <a href="/redmine/account/lost_password">Lost password</a>
+    </td>
+    <td style="text-align:right;">
+        <input type="submit" name="login" value="Login &#187;" tabindex="5"/>
+    </td>
+</tr>
+</table>
+</form></div>
+
+
+<script>
+//<![CDATA[
+$('#username').focus();
+//]]>
+</script>
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="http://www.redmine.org/">Redmine</a> &copy; 2006-2015 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>
