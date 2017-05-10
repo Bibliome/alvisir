@@ -36,7 +36,6 @@ import fr.inra.mig_bibliome.alvisir.core.expand.explanation.MatchExplanation;
 import fr.inra.mig_bibliome.alvisir.core.facet.FacetCategory;
 import fr.inra.mig_bibliome.alvisir.core.facet.FacetCollector;
 import fr.inra.mig_bibliome.alvisir.core.facet.FacetSpecification;
-import fr.inra.mig_bibliome.alvisir.core.index.IndexGlobalAttributes;
 import fr.inra.mig_bibliome.alvisir.core.query.AlvisIRAndQueryNode;
 import fr.inra.mig_bibliome.alvisir.core.query.AlvisIRAnyQueryNode;
 import fr.inra.mig_bibliome.alvisir.core.query.AlvisIRNearQueryNode;
@@ -207,7 +206,7 @@ public class SearchResult {
 			return;
 		}
 //		System.err.println("checking field and relation names");
-		checkFieldAndRelationNames(originalQueryNode);
+		checkFieldNames(originalQueryNode);
 		this.originalQueryNode = originalQueryNode;
 		try {
 //			System.err.println("expanding query");
@@ -414,76 +413,10 @@ public class SearchResult {
 		return logger;
 	}
 	
-	private boolean checkFieldAndRelationNames(AlvisIRQueryNode query) {
+	private boolean checkFieldNames(AlvisIRQueryNode query) {
 		Collection<String> allowedFields = searchConfig.getFieldNamesAndAliases();
-		boolean result = query.accept(checkQueryFieldNames, allowedFields);
-		AlvisIRIndex index = searchConfig.getIndex();
-		IndexGlobalAttributes globalAttributes = index.getGlobalAttributes();
-		Map<String,String[]> relationInfo = globalAttributes.getRelationInfo();
-		Collection<String> allowedRelations = relationInfo == null ? null : relationInfo.keySet();
-		return query.accept(checkRelationNames, allowedRelations) && result;
+		return query.accept(checkQueryFieldNames, allowedFields);
 	}
-
-	private AlvisIRQueryNodeVisitor<Boolean,Collection<String>,RuntimeException> checkRelationNames = new AlvisIRQueryNodeVisitor<Boolean,Collection<String>,RuntimeException>() {
-		@Override
-		public Boolean visit(AlvisIRTermQueryNode termQueryNode, Collection<String> param) {
-			return true;
-		}
-
-		@Override
-		public Boolean visit(AlvisIRPhraseQueryNode phraseQueryNode, Collection<String> param) {
-			return true;
-		}
-
-		@Override
-		public Boolean visit(AlvisIRPrefixQueryNode prefixQueryNode, Collection<String> param) {
-			return true;
-		}
-
-		@Override
-		public Boolean visit(AlvisIRAndQueryNode andQueryNode, Collection<String> param) {
-			boolean result = true;
-			for (AlvisIRAndQueryNode.Clause clause : andQueryNode.getClauses()) {
-				AlvisIRQueryNode qn = clause.getQueryNode();
-				result = qn.accept(this, param) && result;
-			}
-			return result;
-		}
-
-		@Override
-		public Boolean visit(AlvisIROrQueryNode orQueryNode, Collection<String> param) {
-			boolean result = true;
-			for (AlvisIRQueryNode clause : orQueryNode.getClauses()) {
-				result = clause.accept(this, param) && result;
-			}
-			return result;
-		}
-
-		@Override
-		public Boolean visit(AlvisIRNearQueryNode nearQueryNode, Collection<String> param) {
-			return true;
-		}
-
-		@Override
-		public Boolean visit(AlvisIRRelationQueryNode relationQueryNode, Collection<String> param) {
-			String rel = relationQueryNode.getRelation();
-			if (!param.contains(rel)) {
-				logger.warning("unknown relation " + rel);
-				return false;
-			}
-			return true;
-		}
-
-		@Override
-		public Boolean visit(AlvisIRNoExpansionQueryNode noExpansionQueryNode, Collection<String> param) {
-			return noExpansionQueryNode.getQueryNode().accept(this, param);
-		}
-
-		@Override
-		public Boolean visit(AlvisIRAnyQueryNode anyQueryNode, Collection<String> param) {
-			return true;
-		}
-	};
 
 	private AlvisIRQueryNodeVisitor<Boolean,Collection<String>,RuntimeException> checkQueryFieldNames = new AlvisIRQueryNodeVisitor<Boolean,Collection<String>,RuntimeException>() {
 		private boolean checkFieldName(Collection<String> allowed, String field) {
