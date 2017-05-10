@@ -28,6 +28,7 @@
     <xsl:param name="copyright-years">2013</xsl:param>
     <xsl:param name="about-url">../about.jsp</xsl:param>
     <xsl:param name="search-button-text">Search</xsl:param>
+    <xsl:param name="logo-url">../images/alvis.png</xsl:param>
 
     <xsl:param name="onto-names"/>
 
@@ -87,6 +88,7 @@
                 <link rel="favicon" type="image/png" href="../images/AlvisIR_icon.ico" />
                 <link rel="icon" type="image/png" href="../images/AlvisIR_icon.png" />
                 <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
+                <script type="text/javascript" src="../js/jquery-3.1.1.min.js" />
                 <!--
                 <script src="http://codeorigin.jquery.com/jquery-2.0.3.min.js"></script>
                 -->
@@ -121,7 +123,9 @@
             <body class="easyui-layout">
 
                 <script src="http://cdnjs.cloudflare.com/ajax/libs/d3/3.2.2/d3.v3.min.js" charset="utf-8"></script>
+                <script src="../js/d3.js" charset="utf-8"></script>
                 <script src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.1/underscore-min.js"></script>
+                <script src="../js/underscore.min.js"></script>
                 <script type="text/javascript" src="../js/ontobrowser/ontobrowser.js" ></script>
                 <link type="text/css" rel="stylesheet" href="../js/ontobrowser/ontobrowser.css"/>
                 
@@ -185,7 +189,7 @@
 
                             <div class="Dialog">
                                 <a href="{$search-url}">
-                                    <img alt="Logo" src="../images/alvis.png" style="width: 329px; height: 156px;"/>
+                                    <img alt="Logo" src="{$logo-url}" style="width: 329px; height: 156px;"/>
                                 </a>
                             </div>
 
@@ -222,7 +226,7 @@
                                  
                                     <div class="Col">
                                         <a class="Logo" href="{$search-url}">
-                                            <img alt="Logo" src="../images/alvis.png" style="width: 200px; height: 95px;"/>
+                                            <img alt="Logo" src="{$logo-url}" style="width: 200px; height: 95px;"/>
                                         </a>
                                     </div>
                                     <div class="Col">
@@ -363,7 +367,7 @@
 
                             <div class="Dialog">
                                 <a href="{$search-url}">
-                                    <img alt="Logo" src="../images/alvis.png" style="width: 329px; height: 156px;"/>
+                                    <img alt="Logo" src="{$logo-url}" style="width: 329px; height: 156px;"/>
                                 </a>
                             </div>
 
