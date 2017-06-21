@@ -28,7 +28,6 @@
     <xsl:param name="copyright-years">2013</xsl:param>
     <xsl:param name="about-url">../about.jsp</xsl:param>
     <xsl:param name="search-button-text">Search</xsl:param>
-    <xsl:param name="logo-url">../images/alvis.png</xsl:param>
 
     <xsl:param name="onto-names"/>
 
@@ -189,7 +188,7 @@
 
                             <div class="Dialog">
                                 <a href="{$search-url}">
-                                    <img alt="Logo" src="{$logo-url}" style="width: 329px; height: 156px;"/>
+                                    <img alt="Logo" src="../images/alvis.png" style="width: 329px; height: 156px;"/>
                                 </a>
                             </div>
 
@@ -226,7 +225,7 @@
                                  
                                     <div class="Col">
                                         <a class="Logo" href="{$search-url}">
-                                            <img alt="Logo" src="{$logo-url}" style="width: 200px; height: 95px;"/>
+                                            <img alt="Logo" src="../images/alvis.png" style="width: 200px; height: 95px;"/>
                                         </a>
                                     </div>
                                     <div class="Col">
@@ -367,7 +366,7 @@
 
                             <div class="Dialog">
                                 <a href="{$search-url}">
-                                    <img alt="Logo" src="{$logo-url}" style="width: 329px; height: 156px;"/>
+                                    <img alt="Logo" src="../images/alvis.png" style="width: 329px; height: 156px;"/>
                                 </a>
                             </div>
 
@@ -490,7 +489,7 @@
         <div class="doc-snippet">
             <div class="doc-header doc-field">
                 <xsl:if test="field[@name = $outlink_2-url-field]/fragment">
-                    <div class="outlink">
+                  <div class="outlink">
                         <a target="_blank">
                             <xsl:attribute name="href">
                                 <xsl:value-of select="concat($outlink_2-url-prefix, field[@name = $outlink_2-url-field]/fragment)"/>
@@ -542,6 +541,40 @@
                         </span>
                     </xsl:otherwise>
                 </xsl:choose>
+
+		                <div style="display:none;">
+                    <ul>
+                        <xsl:for-each select="field[@name = $title-field]/fragment//highlight[@ord='0']">
+                            <xsl:if test="key('explById',@explanation)[@class = 'fr.inra.mig_bibliome.alvisir.core.expand.explanation.RelationMatchExplanation']">
+                                <xsl:variable name="relation">
+                                    <xsl:value-of select="key('explById',@explanation)/@relation"/>
+                                </xsl:variable>
+                                <li class="flattened-relation">
+                                    <xsl:attribute name="data-relation">
+                                        <xsl:value-of select="$relation"/>
+                                    </xsl:attribute>
+                                    <xsl:for-each select="./@*[name() = 'annotation' or name() = 'explanation']">
+                                        <xsl:variable name="attrName" select="concat('data-', name())"/>
+                                        <xsl:attribute name="{$attrName}">
+                                            <xsl:value-of select="."/>
+                                        </xsl:attribute>
+                                    </xsl:for-each>
+                                    <xsl:for-each select="arg">
+                                        <xsl:variable name="attrPrefix" select="concat('data-arg-', position(), '-')"/>
+                                        <xsl:for-each select="./@*[name() = 'role' or name() = 'ref']">
+                                            <xsl:variable name="attrName" select="concat($attrPrefix, name())"/>
+                                            <xsl:attribute name="{$attrName}">
+                                                <xsl:value-of select="."/>
+                                            </xsl:attribute>
+                                        </xsl:for-each>
+                                    </xsl:for-each>
+                                    Relation:<xsl:value-of select="$relation"/>
+                                </li>
+                            </xsl:if>
+                        </xsl:for-each>
+                    </ul>
+                </div>
+
             </div>
 
             <div class="doc-score">

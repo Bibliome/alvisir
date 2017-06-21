@@ -335,14 +335,17 @@ a.nbdisp-btn span.l-btn-left {
     margin-bottom: 5px; 
 
     padding: 8px 10px 4px;
-    overflow: hidden; 
+    overflow: visible; 
 
     border-color: lightsteelblue grey silver lightsteelblue;
     border-style: solid;
     border-width: 1px 1px 2px 2px;
     border-radius: 4px; 
 }
-.doc-header { }
+
+.doc-header {
+    overflow: visible;
+}
 
 .doc-ord {
     background-color: #ECECEC;
@@ -648,14 +651,14 @@ rect.relation[data-highlighted="true"] {
 }
 
 .dualcontainer {
-    overflow: hidden;
+    overflow: visible;
     position: relative;
 }
 
 .svgcontainer {
     bottom: 0;
     left: 0;    
-    overflow: hidden;
+    overflow: visible;
     position: absolute;
     right: 0;
     top: 0;
@@ -672,7 +675,7 @@ rect.relation[data-highlighted="true"] {
 }
 
 .core-rel-overlay {
-    overflow: hidden;
+    overflow: visible;
     position: absolute;
     z-index : 1;
     background-color: transparent;
@@ -686,6 +689,7 @@ rect.relation[data-highlighted="true"] {
 .textcontainer {
     line-height:22px;
     padding-bottom: 11px;
+    overflow: visible;
 }
 
 .doc-facets {
@@ -742,4 +746,9 @@ rect.relation[data-highlighted="true"] {
     background-color: #F6F6F6;
     border: 6px solid #FFFFC0; 
     border-radius: 8px; 
+}
+
+
+svg {
+    overflow: visible;
 }
