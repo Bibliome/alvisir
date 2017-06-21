@@ -41,7 +41,7 @@ public class PhraseMatchExplanation extends MatchExplanation {
 	@Override
 	public AlvisIRQueryNode getQueryNode() {
 		AlvisIRPhraseQueryNode result = new AlvisIRPhraseQueryNode(getFieldName(), slop);
-		for (String text : texts) {
+		for (String text : normalizedTexts) {
 			result.addText(text);
 		}
 		return result;
