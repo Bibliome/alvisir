@@ -340,7 +340,7 @@ public class SearchResult {
 
 		snippetsTimer.stop();
 	}
-	
+
 	private void buildFacets(TopDocs topDocs) throws IOException {
 		Timer<AlvisIRTimerCategory> facetsTimer = timer.newChild("facets", AlvisIRTimerCategory.INSTANCE);
 		facetsTimer.start();

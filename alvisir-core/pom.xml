@@ -40,6 +40,7 @@
 	      <keeplinecolumn>true</keeplinecolumn>
 	      <sanitycheck>true</sanitycheck>
 	      <debugParser>false</debugParser>
+	      <ppresswarnings>true</ppresswarnings>
 	      <sourceDirectory>src/main/resources/fr/inra/mig_bibliome/alvisir/core/query/parser</sourceDirectory>
 	      <outputDirectory>${project.build.directory}/generated-sources/javacc</outputDirectory>
 	    </configuration>
