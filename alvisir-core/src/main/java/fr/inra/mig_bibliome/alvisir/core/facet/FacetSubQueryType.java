@@ -1,5 +1,8 @@
 package fr.inra.mig_bibliome.alvisir.core.facet;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import fr.inra.mig_bibliome.alvisir.core.query.parser.QueryParserUtils;
 
 public enum FacetSubQueryType {
@@ -18,7 +21,7 @@ public enum FacetSubQueryType {
 	PHRASE {
 		@Override
 		public String getSubQuery(String field, String text) {
-			return field + "=\"" + text + "\"";
+			return field + "=\"" + QueryParserUtils.quotePhrase(text) + "\"";
 		}
 
 		@Override

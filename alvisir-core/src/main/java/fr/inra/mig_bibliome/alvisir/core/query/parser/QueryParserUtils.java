@@ -1,8 +1,12 @@
 package fr.inra.mig_bibliome.alvisir.core.query.parser;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
+
+import org.bibliome.util.Strings;
 
 import fr.inra.mig_bibliome.alvisir.core.query.AlvisIRAnyQueryNode;
 import fr.inra.mig_bibliome.alvisir.core.query.AlvisIRPrefixQueryNode;
@@ -56,6 +60,15 @@ public class QueryParserUtils {
 	static {
 		RESERVED_WORDS.addAll(Arrays.asList("and", "or", "not"));
 		SPECIAL_CHARACTERS.addAll(Arrays.asList('=', '(', ')', '[', ']', '~', '"'));
+	}
+	
+	public static String quotePhrase(String phrase) {
+		List<String> terms = Strings.split(phrase, ' ', 0);
+		List<String> quotedTerms = new ArrayList<String>(terms.size());
+		for (String term : terms) {
+			quotedTerms.add(quoteTerm(term));
+		}
+		return Strings.join(quotedTerms, ' ');
 	}
 	
 	public static String quoteTerm(String term) {
