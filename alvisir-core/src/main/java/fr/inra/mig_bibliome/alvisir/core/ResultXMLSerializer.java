@@ -29,6 +29,7 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
+import org.apache.lucene.search.Query;
 import org.bibliome.util.Timer;
 import org.bibliome.util.fragments.DOMBuilderFragmentTagIterator;
 import org.bibliome.util.fragments.Fragment;
@@ -285,7 +286,8 @@ public class ResultXMLSerializer {
 			result.setAttribute("default-field", defaultFieldName);
 			result.appendChild(queryNodeToDOM(defaultFieldName, searchResult.getOriginalQueryNode(), "original-query"));
 			result.appendChild(queryNodeToDOM(defaultFieldName, searchResult.getQueryNode(), "expanded-query"));
-			XMLUtils.createElement(originalDoc, result, 0, "lucene-query", searchResult.getLuceneQuery().toString());
+			Query luceneQuery = searchResult.getLuceneQuery();
+			XMLUtils.createElement(originalDoc, result, 0, "lucene-query", luceneQuery == null ? "" : luceneQuery.toString());
 		}
 		return result;
 	}
