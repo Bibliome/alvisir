@@ -77,6 +77,7 @@ public class SearchResult {
 	private String queryString;
 	private AlvisIRQueryNode originalQueryNode;
 	private AlvisIRQueryNode queryNode;
+	private Query luceneQuery;
 
 	public SearchResult(SearchConfig searchConfig, boolean recordDebug) {
 		super();
@@ -272,9 +273,9 @@ public class SearchResult {
 		AlvisIRIndex index = searchConfig.getIndex();
 		IndexSearcher indexSearcher = index.getIndexSearcher();
 		this.queryNode = expansionResult.getQueryNode();
-		Query query = AlvisIRQueryNodeQueryConverter.convert(index.getGlobalAttributes().getTokenPositionGap(), searchConfig, queryNode);
+		luceneQuery = AlvisIRQueryNodeQueryConverter.convert(index.getGlobalAttributes().getTokenPositionGap(), searchConfig, queryNode);
 		//System.err.println("query = " + query);
-		TopDocs topDocs = indexSearcher.search(query, n);
+		TopDocs topDocs = indexSearcher.search(luceneQuery, n);
 		totalHits = topDocs.totalHits;
 		if (totalHits == 0) {
 			logger.warning("no results");
@@ -403,6 +404,10 @@ public class SearchResult {
 	
 	public AlvisIRQueryNode getQueryNode() {
 		return queryNode;
+	}
+
+	public Query getLuceneQuery() {
+		return luceneQuery;
 	}
 
 	public List<LogRecord> getMessages() {

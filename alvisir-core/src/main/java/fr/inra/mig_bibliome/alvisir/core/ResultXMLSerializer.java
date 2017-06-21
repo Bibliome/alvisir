@@ -285,6 +285,7 @@ public class ResultXMLSerializer {
 			result.setAttribute("default-field", defaultFieldName);
 			result.appendChild(queryNodeToDOM(defaultFieldName, searchResult.getOriginalQueryNode(), "original-query"));
 			result.appendChild(queryNodeToDOM(defaultFieldName, searchResult.getQueryNode(), "expanded-query"));
+			XMLUtils.createElement(originalDoc, result, 0, "lucene-query", searchResult.getLuceneQuery().toString());
 		}
 		return result;
 	}
