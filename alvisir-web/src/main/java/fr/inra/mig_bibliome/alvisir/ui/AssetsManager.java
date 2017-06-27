@@ -11,14 +11,33 @@ import java.util.logging.Logger;
 import javax.servlet.ServletContext;
 
 class AssetsManager /* "assets management" lol */ {
-	static final String LOGO_DEFAULT_RESOURCE = "/images/alvis.png";
-	static final String LOGO_DISPLAY_PARAM = "logo-png-path";
+	private static final String LOGO_FILENAME = "alvis";
+	private static final String LOGO_DEFAULT_RESOURCE = "/images/alvis.png";
+	private static final String LOGO_DISPLAY_PARAM = "logo-png-path";
 	
-	static InputStream getLogo(ServletContext context, Configuration uiConfig) {
-		return getDataStream(context, uiConfig, LOGO_DISPLAY_PARAM, LOGO_DEFAULT_RESOURCE);
+	private static final String BACKGROUND_FILENAME = "background";
+	private static final String BACKGROUND_DEFAULT_RESOURCE = "/images/background.jpg";
+	private static final String BACKGROUND_DISPLAY_PARAM = "background-png-path";
+	
+	private static final String BACKGROUND_LEFT_FILENAME = "background-left";
+	private static final String BACKGROUND_LEFT_DEFAULT_RESOURCE = "/images/background-left.jpg";
+	private static final String BACKGROUND_LEFT_DISPLAY_PARAM = "background-left-png-path";
+	
+	private static final String BACKGROUND_RIGHT_FILENAME = "background-right";
+	private static final String BACKGROUND_RIGHT_DEFAULT_RESOURCE = "/images/background-right.jpg";
+	private static final String BACKGROUND_RIGHT_DISPLAY_PARAM = "background-right-png-path";
+	
+	static InputStream getDataStream(ServletContext context, Configuration uiConfig, String filename) {
+		switch (filename) {
+			case LOGO_FILENAME: return getDataStream(context, uiConfig, LOGO_DISPLAY_PARAM, LOGO_DEFAULT_RESOURCE);
+			case BACKGROUND_FILENAME: return getDataStream(context, uiConfig, BACKGROUND_DISPLAY_PARAM, BACKGROUND_DEFAULT_RESOURCE);
+			case BACKGROUND_LEFT_FILENAME: return getDataStream(context, uiConfig, BACKGROUND_LEFT_DISPLAY_PARAM, BACKGROUND_LEFT_DEFAULT_RESOURCE);
+			case BACKGROUND_RIGHT_FILENAME: return getDataStream(context, uiConfig, BACKGROUND_RIGHT_DISPLAY_PARAM, BACKGROUND_RIGHT_DEFAULT_RESOURCE);
+		}
+		return null;
 	}
 	
-	static InputStream getDataStream(ServletContext context, Configuration uiConfig, String displayParam, String defaultResource) {
+	private static InputStream getDataStream(ServletContext context, Configuration uiConfig, String displayParam, String defaultResource) {
 		Map<String,String> displayConfig = uiConfig.getDisplayParams();
 		if (displayConfig.containsKey(displayParam)) {
 			String dataPath = displayConfig.get(displayParam);

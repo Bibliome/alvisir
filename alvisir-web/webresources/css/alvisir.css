@@ -4,7 +4,7 @@ body {
     font-family: Verdana, Geneva, sans-serif;
     font-size: 10px;
 
-    background: url("../images/background.jpg") repeat-x scroll 0 0 transparent !important;
+    background: url("../webapi/resources/images/background.jpg") repeat-x scroll 0 0 transparent !important;
     bottom: 0;
     left: 0;
     position: absolute;
@@ -621,14 +621,14 @@ rect.relation[data-highlighted="true"] {
 }
 
 .Banner .Left {
-    background: url("../images/background-left.jpg") no-repeat scroll left top transparent;
+    background: url("../webapi/resources/images/background-left.jpg") no-repeat scroll left top transparent;
     float: left;
     height: 200px;
     width: 417px;
 }
 
 .Banner .Right {
-    background: url("../images/background-right.jpg") no-repeat scroll right top transparent;
+    background: url("../webapi/resources/images/background-right.jpg") no-repeat scroll right top transparent;
     float: right;
     height: 200px;
     width: 1181px;
