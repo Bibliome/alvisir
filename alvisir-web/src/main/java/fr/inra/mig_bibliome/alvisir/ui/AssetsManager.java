@@ -17,15 +17,15 @@ class AssetsManager /* "assets management" lol */ {
 	
 	private static final String BACKGROUND_FILENAME = "background";
 	private static final String BACKGROUND_DEFAULT_RESOURCE = "/images/background.jpg";
-	private static final String BACKGROUND_DISPLAY_PARAM = "background-png-path";
+	private static final String BACKGROUND_DISPLAY_PARAM = "background-jpg-path";
 	
 	private static final String BACKGROUND_LEFT_FILENAME = "background-left";
 	private static final String BACKGROUND_LEFT_DEFAULT_RESOURCE = "/images/background-left.jpg";
-	private static final String BACKGROUND_LEFT_DISPLAY_PARAM = "background-left-png-path";
+	private static final String BACKGROUND_LEFT_DISPLAY_PARAM = "background-left-jpg-path";
 	
 	private static final String BACKGROUND_RIGHT_FILENAME = "background-right";
 	private static final String BACKGROUND_RIGHT_DEFAULT_RESOURCE = "/images/background-right.jpg";
-	private static final String BACKGROUND_RIGHT_DISPLAY_PARAM = "background-right-png-path";
+	private static final String BACKGROUND_RIGHT_DISPLAY_PARAM = "background-right-jpg-path";
 	
 	static InputStream getDataStream(ServletContext context, Configuration uiConfig, String filename) {
 		switch (filename) {
