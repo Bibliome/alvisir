@@ -42,6 +42,10 @@ class AssetsManager /* "assets management" lol */ {
 		if (displayConfig.containsKey(displayParam)) {
 			String dataPath = displayConfig.get(displayParam);
 			File dataFile = new File(dataPath);
+			if (!dataFile.isAbsolute()) {
+				String base = uiConfig.getBasedir();
+				dataFile = new File(base, dataPath);
+			}
 			try {
 				return new FileInputStream(dataFile);
 			}

@@ -34,7 +34,6 @@ import org.xml.sax.SAXException;
  * @author fpapazian
  */
 public class Configuration {
-
     //Parameters used in query uri
     public static final String QueryService_Path = "search";
     public static final String TabularOuputQueryService_Path = "tab";
@@ -52,20 +51,25 @@ public class Configuration {
         File configFile = new File(uiConfigPath);
 
         InputStream configIS = null;
+        
         if (uiConfigPath == null) {
             Logger.getLogger(Configuration.class.getName()).log(Level.SEVERE, "No configuration file specified!");
             return null;
-        } else if (!configFile.isAbsolute()) {
+        }
+        else if (!configFile.isAbsolute()) {
             //non-absolute path refer to package resource
             Logger.getLogger(Configuration.class.getName()).log(Level.INFO, "retreiving internal config : {0}", uiConfigPath);
             configIS = context.getResourceAsStream("/" + uiConfigPath);
 
-        } else if (configFile.exists()) {
+        }
+        else if (configFile.exists()) {
             //absolute path refer to external file
             try {
                 Logger.getLogger(Configuration.class.getName()).log(Level.INFO, "retreiving external config : {0}", configFile.getAbsolutePath());
                 configIS = new FileInputStream(configFile);
-            } catch (FileNotFoundException ex) {
+            }
+            catch (FileNotFoundException ex) {
+            	// handled later
             }
         }
         if (configIS == null) {
@@ -76,32 +80,41 @@ public class Configuration {
         try {
             Document configDocument = XMLUtils.getDocumentBuilder().parse(configIS);
             configIS.close();
+            Element root = configDocument.getDocumentElement();
+            root.setAttribute("source", uiConfigPath);
+            root.setAttribute("basedir", configFile.getParent());
             return configDocument;
-        } catch (SAXException ex) {
+        }
+        catch (SAXException ex) {
             Logger.getLogger(Configuration.class.getName()).log(Level.SEVERE, "Can not read configuration in {0}", configFile.getAbsoluteFile());
             throw new RuntimeException(ex);
-        } catch (IOException ex) {
+        }
+        catch (IOException ex) {
             Logger.getLogger(Configuration.class.getName()).log(Level.SEVERE, "Can not read configuration in {0}", configFile.getAbsoluteFile());
             throw new RuntimeException(ex);
         }
     }
-    //
+
     private final Document configDocument;
 
     public Configuration(ServletContext context, String uiConfigPath) {
         configDocument = readConfig(context, uiConfigPath);
     }
+    
+    public String getBasedir() {
+    	return configDocument.getDocumentElement().getAttribute("basedir");
+    }
 
     public String getSearchConfigPath() {
-        return getNodeAttributeValue("/alvisir-ui-config/alvisir-search", "filepath", true);
+        return getNodeAttributeValue("/alvisir-ui-config/alvisir-search", "filepath", true, true);
     }
 
     public String getAlternateStyleSheetPath() {
-        return getNodeAttributeValue("/alvisir-ui-config/alternate-stylesheet", "filepath", false);
+        return getNodeAttributeValue("/alvisir-ui-config/alternate-stylesheet", "filepath", false, true);
     }
 
     public String getExtraCSSPath() {
-        return getNodeAttributeValue("/alvisir-ui-config/extra-css", "filepath", false);
+        return getNodeAttributeValue("/alvisir-ui-config/extra-css", "filepath", false, true);
     }
 
     public Map<String, String> getDisplayParams() {
@@ -109,11 +122,11 @@ public class Configuration {
     }
 
     public String getOntologyPath(String ontoName) {
-        return getNodeAttributeValue("/alvisir-ui-config/resources/ontology[@name='" + ontoName + "']", "filepath", false);
+        return getNodeAttributeValue("/alvisir-ui-config/resources/ontology[@name='" + ontoName + "']", "filepath", false, true);
     }
 
     public String getOntologyExpanderKey(String ontoName) {
-        return getNodeAttributeValue("/alvisir-ui-config/resources/ontology[@name='" + ontoName + "']", "expander-key", false);
+        return getNodeAttributeValue("/alvisir-ui-config/resources/ontology[@name='" + ontoName + "']", "expander-key", false, false);
     }
 
     public List<String> getOntologyNames() {
@@ -121,7 +134,7 @@ public class Configuration {
     }
 
     // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
-    private String getNodeAttributeValue(String path, String attributeName, boolean failIfNotFound) {
+    private String getNodeAttributeValue(String path, String attributeName, boolean failIfNotFound, boolean filepath) {
         String attributeValue = null;
 
         XPath xPath = XPathFactory.newInstance().newXPath();
@@ -133,10 +146,12 @@ public class Configuration {
                 if (failIfNotFound) {
                     Logger.getLogger(Configuration.class.getName()).log(Level.SEVERE, "Invalid configuration : could not find " + path);
                     throw new IllegalArgumentException("Invalid configuration : could not find " + path);
-                } else {
+                }
+                else {
                     return null;
                 }
             }
+            
             Element e = (Element) node;
             if (e.hasAttribute(attributeName)) {
                 attributeValue = e.getAttribute(attributeName);
@@ -145,9 +160,17 @@ public class Configuration {
                     throw new IllegalArgumentException("could not find " + path + "/@" + attributeName);
                 }
             }
+            
+            if (filepath) {
+            	File f = new File(attributeValue);
+            	if (!f.isAbsolute()) {
+            		String base = getBasedir();
+            		return new File(base, attributeValue).getAbsolutePath();
+            	}
+            }
             return attributeValue;
-
-        } catch (XPathExpressionException ex) {
+        }
+        catch (XPathExpressionException ex) {
             Logger.getLogger(Configuration.class.getName()).log(Level.SEVERE, "Error while reading configuration: " + path + "/@" + attributeName);
             throw new RuntimeException(ex.getMessage());
         }
