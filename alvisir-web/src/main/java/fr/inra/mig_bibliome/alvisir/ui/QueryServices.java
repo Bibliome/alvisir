@@ -30,6 +30,7 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactoryConfigurationError;
@@ -373,5 +374,19 @@ public class QueryServices {
             throw new WebApplicationException(ex);
 
         }
+    }
+    
+    @GET
+    @Produces("image/png")
+    @Path("resources/images/{filename}.png")
+    public InputStream getPNG(
+    		@PathParam("filename") final String filename
+    		) {
+    	switch (filename) {
+    		case "alvis":
+    			return AssetsManager.getLogo(context, getConfig());
+    		default:
+    			throw new WebApplicationException(Status.NOT_FOUND);
+    	}
     }
 }
