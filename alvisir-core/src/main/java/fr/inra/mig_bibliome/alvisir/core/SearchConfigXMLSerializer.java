@@ -57,7 +57,8 @@ public class SearchConfigXMLSerializer {
 		DocumentBuilderFactory docBuilderFactory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder docBuilder = docBuilderFactory.newDocumentBuilder();
 		Document doc = docBuilder.parse(path);
-		return getSearch(doc);
+		String basedir = new File(path).getParent();
+		return getSearch(basedir, doc);
 	}
 
 	/**
@@ -68,14 +69,23 @@ public class SearchConfigXMLSerializer {
 	 * @throws ExpanderException 
 	 * @throws SearchConfigException 
 	 */
-	public static final SearchConfig getSearch(Document doc) throws IOException, ExpanderException, SearchConfigException {
-		return getSearch(doc.getDocumentElement());
+	public static final SearchConfig getSearch(String basedir, Document doc) throws IOException, ExpanderException, SearchConfigException {
+		return getSearch(basedir, doc.getDocumentElement());
 	}
 	
 	private static void checkAttribute(Element elt, String attribute) throws SearchConfigException {
 		if (!elt.hasAttribute(attribute)) {
 			throw new SearchConfigException("missing attribute " + attribute + " in " + elt.getTagName());
 		}
+	}
+	
+	private static String getFileAttribute(String basedir, Element elt, String attribute) {
+		String value = elt.getAttribute(attribute);
+		File f = new File(value);
+		if (!f.isAbsolute()) {
+			return new File(basedir, value).getAbsolutePath();
+		}
+		return value;
 	}
 
 	/**
@@ -86,14 +96,14 @@ public class SearchConfigXMLSerializer {
 	 * @throws ExpanderException 
 	 * @throws SearchConfigException 
 	 */
-	public static final SearchConfig getSearch(Element elt) throws IOException, ExpanderException, SearchConfigException {
+	public static final SearchConfig getSearch(String basedir, Element elt) throws IOException, ExpanderException, SearchConfigException {
 		SearchConfig result = new SearchConfig();
 		checkAttribute(elt, AlvisIRConstants.XML_SEARCH_INDEX_DIR);
 		checkAttribute(elt, AlvisIRConstants.XML_SEARCH_DEFAULT_FIELD);
-		AlvisIRIndex index = new AlvisIRIndex(elt.getAttribute(AlvisIRConstants.XML_SEARCH_INDEX_DIR));
+		AlvisIRIndex index = new AlvisIRIndex(getFileAttribute(basedir, elt, AlvisIRConstants.XML_SEARCH_INDEX_DIR));
 		TextExpander textExpander = NullTextExpander.INSTANCE;
 		if (elt.hasAttribute(AlvisIRConstants.XML_SEARCH_EXPANDER_INDEX_DIR)) {
-			IndexReader expanderIndexReader = openIndexReader(elt.getAttribute(AlvisIRConstants.XML_SEARCH_EXPANDER_INDEX_DIR));
+			IndexReader expanderIndexReader = openIndexReader(getFileAttribute(basedir, elt, AlvisIRConstants.XML_SEARCH_EXPANDER_INDEX_DIR));
 			textExpander = new IndexBasedTextExpander(expanderIndexReader);
 		}
 		result.setTextExpander(textExpander);
