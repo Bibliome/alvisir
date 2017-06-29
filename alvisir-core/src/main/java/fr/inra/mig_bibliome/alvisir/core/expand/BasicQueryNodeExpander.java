@@ -35,7 +35,7 @@ import fr.inra.mig_bibliome.alvisir.core.query.AlvisIRTermQueryNode;
  * @author rbossy
  *
  */
-public class AlvisIRQueryNodeExpander {
+public class BasicQueryNodeExpander {
 	private final TextExpander textExpander;
 
 	/**
@@ -43,7 +43,7 @@ public class AlvisIRQueryNodeExpander {
 	 * @param textExpander atomic query (terms and phrases) expander
 	 * @param andQueryNodeExpander and-node expander
 	 */
-	public AlvisIRQueryNodeExpander(TextExpander textExpander) {
+	public BasicQueryNodeExpander(TextExpander textExpander) {
 		super();
 		this.textExpander = textExpander;
 	}
@@ -136,7 +136,7 @@ public class AlvisIRQueryNodeExpander {
 
 		@Override
 		public ExpansionResult visit(AlvisIRNoExpansionQueryNode noExpansionQueryNode, Void param) {
-			AlvisIRQueryNodeExpander exp = new AlvisIRQueryNodeExpander(NullTextExpander.INSTANCE);
+			BasicQueryNodeExpander exp = new BasicQueryNodeExpander(NullTextExpander.INSTANCE);
 			return exp.expandQuery(fieldOptions, expanderOptions, noExpansionQueryNode.getQueryNode());
 		}
 

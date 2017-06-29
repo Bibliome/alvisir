@@ -27,7 +27,7 @@ import org.bibliome.util.Timer;
 import org.bibliome.util.fragments.Fragment;
 import org.xml.sax.SAXException;
 
-import fr.inra.mig_bibliome.alvisir.core.expand.AlvisIRQueryNodeExpander;
+import fr.inra.mig_bibliome.alvisir.core.expand.BasicQueryNodeExpander;
 import fr.inra.mig_bibliome.alvisir.core.expand.ExpanderException;
 import fr.inra.mig_bibliome.alvisir.core.expand.ExpansionResult;
 import fr.inra.mig_bibliome.alvisir.core.expand.TextExpander;
@@ -253,7 +253,7 @@ public class SearchResult {
 		expanderTimer.start();
 		AlvisIRIndex index = searchConfig.getIndex();
 		TextExpander textExpander = searchConfig.getTextExpander();
-		AlvisIRQueryNodeExpander queryNodeExpander = new AlvisIRQueryNodeExpander(textExpander);
+		BasicQueryNodeExpander queryNodeExpander = new BasicQueryNodeExpander(textExpander);
 		expansionResult = queryNodeExpander.expandQuery(searchConfig, searchConfig, originalQueryNode);
 		for (MatchExplanation expl : expansionResult.getExplanations()) {
 			expl.computeProductivity(index, searchConfig);
