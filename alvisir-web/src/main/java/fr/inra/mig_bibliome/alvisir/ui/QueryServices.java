@@ -7,8 +7,8 @@
  */
 package fr.inra.mig_bibliome.alvisir.ui;
 
-import com.sun.jersey.api.NotFoundException;
 import static fr.inra.mig_bibliome.alvisir.ui.XMLUtils.getDocumentBuilder;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -20,6 +20,7 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.servlet.ServletContext;
 import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
@@ -30,10 +31,20 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactoryConfigurationError;
+
 import org.apache.commons.io.IOUtils;
+import org.bibliome.util.xml.XMLUtils;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.xml.sax.SAXException;
+
+import com.sun.jersey.api.NotFoundException;
+
 import fr.inra.mig_bibliome.alvisir.core.ResultXMLSerializer;
 import fr.inra.mig_bibliome.alvisir.core.SearchConfig;
 import fr.inra.mig_bibliome.alvisir.core.SearchConfigException;
@@ -41,11 +52,6 @@ import fr.inra.mig_bibliome.alvisir.core.SearchConfigXMLSerializer;
 import fr.inra.mig_bibliome.alvisir.core.SearchResult;
 import fr.inra.mig_bibliome.alvisir.core.expand.ExpanderException;
 import fr.inra.mig_bibliome.alvisir.core.expand.TextExpander;
-import org.bibliome.util.xml.XMLUtils;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.xml.sax.SAXException;
 
 @Path("")
 public class QueryServices {
@@ -373,5 +379,34 @@ public class QueryServices {
             throw new WebApplicationException(ex);
 
         }
+    }
+    
+    @GET
+    @Produces("image/png")
+    @Path("resources/images/{filename}.{ext}")
+    public Response getImage(
+    		@PathParam("filename") String filename,
+    		@PathParam("ext") String ext
+    		) {
+    	InputStream is = AssetsManager.getDataStream(context, getConfig(), filename);
+    	String type = getFileType(ext);
+    	if (is == null || type == null) {
+    		return Response
+    				.status(Status.NOT_FOUND)
+    				.build();
+    	}
+    	return Response
+    			.ok(is)
+    			.expires(new Date())
+    			.type(type)
+    			.build();
+    }
+    
+    private static String getFileType(String ext) {
+    	switch (ext) {
+    		case "png": return "image/png";
+    		case "jpg": return "image/jpeg";
+    	}
+    	return MediaType.APPLICATION_OCTET_STREAM;
     }
 }

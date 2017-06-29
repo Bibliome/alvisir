@@ -188,7 +188,7 @@
 
                             <div class="Dialog">
                                 <a href="{$search-url}">
-                                    <img alt="Logo" src="../images/alvis.png" style="width: 329px; height: 156px;"/>
+                                    <img alt="Logo" src="resources/images/alvis.png" style="width: 329px; height: 156px;"/>
                                 </a>
                             </div>
 
@@ -225,7 +225,7 @@
                                  
                                     <div class="Col">
                                         <a class="Logo" href="{$search-url}">
-                                            <img alt="Logo" src="../images/alvis.png" style="width: 200px; height: 95px;"/>
+                                            <img alt="Logo" src="resources/images/alvis.png" style="width: 200px; height: 95px;"/>
                                         </a>
                                     </div>
                                     <div class="Col">
@@ -366,7 +366,7 @@
 
                             <div class="Dialog">
                                 <a href="{$search-url}">
-                                    <img alt="Logo" src="../images/alvis.png" style="width: 329px; height: 156px;"/>
+                                    <img alt="Logo" src="resources/images/alvis.png" style="width: 329px; height: 156px;"/>
                                 </a>
                             </div>
 
