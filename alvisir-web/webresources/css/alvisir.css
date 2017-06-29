@@ -335,7 +335,7 @@ a.nbdisp-btn span.l-btn-left {
     margin-bottom: 5px; 
 
     padding: 8px 10px 4px;
-    overflow: visible; 
+    overflow: auto; 
 
     border-color: lightsteelblue grey silver lightsteelblue;
     border-style: solid;
