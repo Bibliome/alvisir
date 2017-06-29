@@ -37,17 +37,15 @@ import fr.inra.mig_bibliome.alvisir.core.query.AlvisIRTermQueryNode;
  */
 public class AlvisIRQueryNodeExpander {
 	private final TextExpander textExpander;
-	private final AndQueryNodeExpander andQueryNodeExpander;
 
 	/**
 	 * Creates a query expander.
 	 * @param textExpander atomic query (terms and phrases) expander
 	 * @param andQueryNodeExpander and-node expander
 	 */
-	public AlvisIRQueryNodeExpander(TextExpander textExpander, AndQueryNodeExpander andQueryNodeExpander) {
+	public AlvisIRQueryNodeExpander(TextExpander textExpander) {
 		super();
 		this.textExpander = textExpander;
-		this.andQueryNodeExpander = andQueryNodeExpander;
 	}
 
 	private final class ExpanderVisitor implements AlvisIRQueryNodeVisitor<ExpansionResult,Void,RuntimeException> {
@@ -80,7 +78,15 @@ public class AlvisIRQueryNodeExpander {
 
 		@Override
 		public ExpansionResult visit(AlvisIRAndQueryNode andQueryNode, Void param) {
-			return andQueryNodeExpander.expandAndClauses(fieldOptions, expanderOptions, AlvisIRQueryNodeExpander.this, andQueryNode.getClauses());
+			AlvisIRAndQueryNode queryNode = new AlvisIRAndQueryNode();
+			ExpansionResult result = new ExpansionResult();
+			for (AlvisIRAndQueryNode.Clause clause : andQueryNode.getClauses()) {
+				ExpansionResult r = expandQuery(fieldOptions, expanderOptions, clause.getQueryNode());
+				result.mergeExplanations(r);
+				queryNode.addClause(clause.getOperator(), r.getQueryNode());
+			}
+			result.setQueryNode(queryNode);
+			return result;
 		}
 
 		@Override
@@ -130,7 +136,7 @@ public class AlvisIRQueryNodeExpander {
 
 		@Override
 		public ExpansionResult visit(AlvisIRNoExpansionQueryNode noExpansionQueryNode, Void param) {
-			AlvisIRQueryNodeExpander exp = new AlvisIRQueryNodeExpander(NullTextExpander.INSTANCE, SimpleAndQueryNodeExpander.INSTANCE);
+			AlvisIRQueryNodeExpander exp = new AlvisIRQueryNodeExpander(NullTextExpander.INSTANCE);
 			return exp.expandQuery(fieldOptions, expanderOptions, noExpansionQueryNode.getQueryNode());
 		}
 

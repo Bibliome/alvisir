@@ -9,9 +9,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import fr.inra.mig_bibliome.alvisir.core.expand.AndQueryNodeExpander;
 import fr.inra.mig_bibliome.alvisir.core.expand.ExpanderOptions;
-import fr.inra.mig_bibliome.alvisir.core.expand.SimpleAndQueryNodeExpander;
 import fr.inra.mig_bibliome.alvisir.core.expand.TextExpander;
 import fr.inra.mig_bibliome.alvisir.core.facet.FacetSpecification;
 import fr.inra.mig_bibliome.alvisir.core.index.NormalizationOptions;
@@ -27,7 +25,6 @@ import fr.inra.mig_bibliome.alvisir.core.snippet.StandardFragmentBuilder;
 public class SearchConfig implements ExpanderOptions, FieldOptions {
 	private AlvisIRIndex index;
 	private TextExpander textExpander;
-	private AndQueryNodeExpander andQueryNodeExpander = SimpleAndQueryNodeExpander.INSTANCE;
 	private int snippetCount;
 	private int startSnippet;
 	private int facetCount;
@@ -123,14 +120,6 @@ public class SearchConfig implements ExpanderOptions, FieldOptions {
 	
 	public NormalizationOptions getDefaultNormalizationOptions() {
 		return defaultNormalizationOptions;
-	}
-	
-	public AndQueryNodeExpander getAndQueryNodeExpander() {
-		return andQueryNodeExpander;
-	}
-
-	public void setAndQueryNodeExpander(AndQueryNodeExpander andQueryNodeExpander) {
-		this.andQueryNodeExpander = andQueryNodeExpander;
 	}
 
 	/**
