@@ -64,6 +64,12 @@ final class RelationArgumentVisitor implements AlvisIRQueryNodeVisitor<Void,Stri
 		return null;
 	}
 
+	@Override
+	public Void visit(AlvisIRTermListQueryNode termListQueryNode, StringBuilder param) throws RuntimeException {
+		param.append("___TERM_LIST_AS_RELATION_ARGUMENT___");
+		return null;
+	}
+
 	static WildcardQuery getWildcardQuery(AlvisIRRelationQueryNode relationQueryNode, String fieldName) {
 		StringBuilder sb = new StringBuilder();
 		sb.append('{');

@@ -91,6 +91,11 @@ public class AlvisIRQueryNodeSpanQueryConverter extends AbstractAlvisIRQueryNode
 	}
 
 	@Override
+	public SpanQuery visit(AlvisIRTermListQueryNode termListQueryNode, String param) throws RuntimeException {
+		return termListQueryNode.toAndQueryNode().accept(this, param);
+	}
+
+	@Override
 	public SpanQuery visit(AlvisIRAnyQueryNode anyQueryNode, String param) {
 		return nullSpanQuery;
 	}

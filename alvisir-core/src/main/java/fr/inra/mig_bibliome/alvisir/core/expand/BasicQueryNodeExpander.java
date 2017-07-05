@@ -28,6 +28,7 @@ import fr.inra.mig_bibliome.alvisir.core.query.AlvisIRPrefixQueryNode;
 import fr.inra.mig_bibliome.alvisir.core.query.AlvisIRQueryNode;
 import fr.inra.mig_bibliome.alvisir.core.query.AlvisIRQueryNodeVisitor;
 import fr.inra.mig_bibliome.alvisir.core.query.AlvisIRRelationQueryNode;
+import fr.inra.mig_bibliome.alvisir.core.query.AlvisIRTermListQueryNode;
 import fr.inra.mig_bibliome.alvisir.core.query.AlvisIRTermQueryNode;
 
 /**
@@ -140,6 +141,11 @@ public class BasicQueryNodeExpander extends AlvisIRQueryNodeExpander {
 		@Override
 		public ExpansionResult visit(AlvisIRAnyQueryNode anyQueryNode, Void param) {
 			return new ExpansionResult(anyQueryNode, new AnyMatchExplanation(""));
+		}
+
+		@Override
+		public ExpansionResult visit(AlvisIRTermListQueryNode termListQueryNode, Void param) throws RuntimeException {
+			return termListQueryNode.toAndQueryNode().accept(this, param);
 		}
 
 		private ExpansionResult expandAtom(List<MatchExplanation> explanations) {

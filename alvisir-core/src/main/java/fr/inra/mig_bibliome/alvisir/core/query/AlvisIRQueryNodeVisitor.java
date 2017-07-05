@@ -10,4 +10,5 @@ public interface AlvisIRQueryNodeVisitor<R,P,X extends Exception> {
 	R visit(AlvisIRRelationQueryNode relationQueryNode, P param) throws X;
 	R visit(AlvisIRNoExpansionQueryNode noExpansionQueryNode, P param) throws X;
 	R visit(AlvisIRAnyQueryNode anyQueryNode, P param) throws X;
+	R visit(AlvisIRTermListQueryNode termListQueryNode, P param) throws X;
 }

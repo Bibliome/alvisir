@@ -78,6 +78,11 @@ public class AlvisIRQueryNodeQueryConverter implements AlvisIRQueryNodeVisitor<Q
 		return new MatchAllDocsQuery();
 	}
 
+	@Override
+	public Query visit(AlvisIRTermListQueryNode termListQueryNode, FieldOptions param) throws RuntimeException {
+		return termListQueryNode.toAndQueryNode().accept(this, param);
+	}
+
 	private static Query convertAtomicQueryNode(AlvisIRQueryNode qn, String fieldName, FieldOptions fieldOptions, AlvisIRQueryNodeVisitor<? extends Query,String,RuntimeException> visitor) {
 		String[] fields = fieldOptions.getFields(fieldName);
 		if (fields.length == 1) {

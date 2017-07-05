@@ -48,6 +48,7 @@ import fr.inra.mig_bibliome.alvisir.core.query.AlvisIRQueryNode;
 import fr.inra.mig_bibliome.alvisir.core.query.AlvisIRQueryNodeQueryConverter;
 import fr.inra.mig_bibliome.alvisir.core.query.AlvisIRQueryNodeVisitor;
 import fr.inra.mig_bibliome.alvisir.core.query.AlvisIRRelationQueryNode;
+import fr.inra.mig_bibliome.alvisir.core.query.AlvisIRTermListQueryNode;
 import fr.inra.mig_bibliome.alvisir.core.query.AlvisIRTermQueryNode;
 import fr.inra.mig_bibliome.alvisir.core.query.parser.ParseException;
 import fr.inra.mig_bibliome.alvisir.core.query.parser.QueryParser;
@@ -487,6 +488,11 @@ public class SearchResult {
 		@Override
 		public Boolean visit(AlvisIRAnyQueryNode anyQueryNode, Collection<String> param) {
 			return true;
+		}
+
+		@Override
+		public Boolean visit(AlvisIRTermListQueryNode termListQueryNode, Collection<String> param) throws RuntimeException {
+			return checkFieldName(param, termListQueryNode.getField());
 		}
 	};
 }

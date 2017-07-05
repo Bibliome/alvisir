@@ -67,6 +67,12 @@ public enum AlvisIRQueryFields implements AlvisIRQueryNodeVisitor<Set<String>,Se
 		return param;
 	}
 
+	@Override
+	public Set<String> visit(AlvisIRTermListQueryNode termListQueryNode, Set<String> param) throws RuntimeException {
+		param.add(termListQueryNode.getField());
+		return param;
+	}
+
 	public static Set<String> collectQueryFields(AlvisIRQueryNode queryNode) {
 		return queryNode.accept(INSTANCE, new LinkedHashSet<String>());
 	}

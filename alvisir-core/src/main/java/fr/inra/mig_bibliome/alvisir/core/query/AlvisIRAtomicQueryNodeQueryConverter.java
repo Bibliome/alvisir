@@ -61,6 +61,11 @@ class AlvisIRAtomicQueryNodeQueryConverter extends AbstractAlvisIRQueryNodeQuery
 	}
 	
 	@Override
+	public Query visit(AlvisIRTermListQueryNode termListQueryNode, String param) {
+		return termListQueryNode.toAndQueryNode().accept(this, param);
+	}
+
+	@Override
 	public Query visit(AlvisIRNoExpansionQueryNode noExpansionQueryNode, String param) {
 		return noExpansionQueryNode.getQueryNode().accept(this, param);
 	}

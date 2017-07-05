@@ -118,4 +118,9 @@ public class AlvisIRQueryNodeDOMConverter implements AlvisIRQueryNodeVisitor<Ele
 	public Element visit(AlvisIRAnyQueryNode noExpansionQueryNode, Document param) {
 		return param.createElement(AlvisIRConstants.XML_QUERY_ANY);
 	}
+	
+	@Override
+	public Element visit(AlvisIRTermListQueryNode termListQueryNode, Document param) {
+		return termListQueryNode.toAndQueryNode().accept(this, param);
+	}
 }
