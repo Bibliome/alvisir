@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.List;
 
 import org.apache.lucene.analysis.ASCIIFoldingFilter;
 import org.apache.lucene.analysis.LowerCaseFilter;
@@ -155,11 +156,11 @@ public abstract class NormalizationOptions {
 	 * @param texts tokens to normalize
 	 * @return the normalized tokens
 	 */
-	public final Collection<String> normalize(Collection<String> texts) {
+	public final List<String> normalize(Collection<String> texts) {
 		try {
 			TokenStream source = new IteratorTokenStream(texts);
 			TokenStream tokenStream = getTokenStream(source);
-			Collection<String> result = new ArrayList<String>(texts.size());
+			List<String> result = new ArrayList<String>(texts.size());
 			while (tokenStream.incrementToken()) {
 				CharTermAttribute attr = tokenStream.getAttribute(CharTermAttribute.class);
 				result.add(attr.toString());
