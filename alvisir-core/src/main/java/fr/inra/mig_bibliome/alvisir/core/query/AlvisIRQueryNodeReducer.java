@@ -34,14 +34,6 @@ public enum AlvisIRQueryNodeReducer implements AlvisIRQueryNodeVisitor<AlvisIRQu
 				Operator op = clause.getOperator();
 				AlvisIRQueryNode qn = clause.getQueryNode().accept(this, param);
 				qn.accept(andQueryNodeReducer, op);
-//				switch (op) {
-//					case AND:
-//						qn.accept(andQueryNodeReducer, result);
-//						break;
-//					case BUT:
-//						result.addClause(op, qn);
-//						break;
-//				}
 			}
 			andQueryNodeReducer.finishTermList();
 			return result;
@@ -199,70 +191,6 @@ public enum AlvisIRQueryNodeReducer implements AlvisIRQueryNodeVisitor<AlvisIRQu
 		}
 	}
 
-	private static final AlvisIRQueryNodeVisitor<Void,AlvisIRAndQueryNode,RuntimeException> andQueryNodeReducer = new AlvisIRQueryNodeVisitor<Void,AlvisIRAndQueryNode,RuntimeException>() {
-		@Override
-		public Void visit(AlvisIRTermQueryNode termQueryNode, AlvisIRAndQueryNode param) {
-			param.addClause(Operator.AND, termQueryNode);
-			return null;
-		}
-
-		@Override
-		public Void visit(AlvisIRPhraseQueryNode phraseQueryNode, AlvisIRAndQueryNode param) {
-			param.addClause(Operator.AND, phraseQueryNode);
-			return null;
-		}
-
-		@Override
-		public Void visit(AlvisIRPrefixQueryNode prefixQueryNode, AlvisIRAndQueryNode param) {
-			param.addClause(Operator.AND, prefixQueryNode);
-			return null;
-		}
-
-		@Override
-		public Void visit(AlvisIRAndQueryNode andQueryNode, AlvisIRAndQueryNode param) {
-			for (Clause clause : andQueryNode.getClauses()) {
-				param.addClause(clause.getOperator(), clause.getQueryNode());
-			}
-			return null;
-		}
-
-		@Override
-		public Void visit(AlvisIROrQueryNode orQueryNode, AlvisIRAndQueryNode param) {
-			param.addClause(Operator.AND, orQueryNode);
-			return null;
-		}
-
-		@Override
-		public Void visit(AlvisIRNearQueryNode nearQueryNode, AlvisIRAndQueryNode param) {
-			param.addClause(Operator.AND, nearQueryNode);
-			return null;
-		}
-
-		@Override
-		public Void visit(AlvisIRRelationQueryNode relationQueryNode, AlvisIRAndQueryNode param) {
-			param.addClause(Operator.AND, relationQueryNode);
-			return null;
-		}
-
-		@Override
-		public Void visit(AlvisIRNoExpansionQueryNode noExpansionQueryNode, AlvisIRAndQueryNode param) {
-			param.addClause(Operator.AND, noExpansionQueryNode);
-			return null;
-		}
-
-		@Override
-		public Void visit(AlvisIRAnyQueryNode anyQueryNode, AlvisIRAndQueryNode param) {
-//			param.addClause(Operator.AND, anyQueryNode);
-			return null;
-		}
-
-		@Override
-		public Void visit(AlvisIRTermListQueryNode termListQueryNode, AlvisIRAndQueryNode param) throws RuntimeException {
-			param.addClause(Operator.AND, termListQueryNode);
-			return null;
-		}
-	};
-	
 	private static final AlvisIRQueryNodeVisitor<Void,AlvisIROrQueryNode,RuntimeException> orQueryNodeReducer = new AlvisIRQueryNodeVisitor<Void,AlvisIROrQueryNode,RuntimeException>() {
 		@Override
 		public Void visit(AlvisIRTermQueryNode termQueryNode, AlvisIROrQueryNode param) {
