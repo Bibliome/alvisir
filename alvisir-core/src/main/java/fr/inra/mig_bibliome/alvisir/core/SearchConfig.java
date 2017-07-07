@@ -10,6 +10,7 @@ import java.util.Map;
 import java.util.Set;
 
 import fr.inra.mig_bibliome.alvisir.core.expand.ExpanderOptions;
+import fr.inra.mig_bibliome.alvisir.core.expand.QueryNodeExpanderFactory;
 import fr.inra.mig_bibliome.alvisir.core.expand.TextExpander;
 import fr.inra.mig_bibliome.alvisir.core.facet.FacetSpecification;
 import fr.inra.mig_bibliome.alvisir.core.index.NormalizationOptions;
@@ -25,6 +26,7 @@ import fr.inra.mig_bibliome.alvisir.core.snippet.StandardFragmentBuilder;
 public class SearchConfig implements ExpanderOptions, FieldOptions {
 	private AlvisIRIndex index;
 	private TextExpander textExpander;
+	private QueryNodeExpanderFactory queryNodeExpanderFactory = QueryNodeExpanderFactory.BASIC;
 	private int snippetCount;
 	private int startSnippet;
 	private int facetCount;
@@ -212,10 +214,12 @@ public class SearchConfig implements ExpanderOptions, FieldOptions {
 		return textExpander;
 	}
 
+	public QueryNodeExpanderFactory getQueryNodeExpanderFactory() {
+		return queryNodeExpanderFactory;
+	}
+
 	
-	
-	
-	
+
 	public String getDefaultFieldName() {
 		return defaultFieldName;
 	}
@@ -256,6 +260,9 @@ public class SearchConfig implements ExpanderOptions, FieldOptions {
 		this.textExpander = textExpander;
 	}
 
+	public void setQueryNodeExpanderFactory(QueryNodeExpanderFactory queryNodeExpanderFactory) {
+		this.queryNodeExpanderFactory = queryNodeExpanderFactory;
+	}
 	
 	
 	
