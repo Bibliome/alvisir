@@ -24,18 +24,18 @@ public enum AlvisIRQueryNodeReducer implements AlvisIRQueryNodeVisitor<AlvisIRQu
 
 		@Override
 		public AlvisIRQueryNode visit(AlvisIRAndQueryNode andQueryNode, Void param) {
-			List<Clause> clauses = andQueryNode.getClauses();
-			if (clauses.size() == 1) {
-				return clauses.get(0).getQueryNode().accept(this, param);
-			}
 			AlvisIRAndQueryNode result = new AlvisIRAndQueryNode();
 			AndQueryNodeReducer andQueryNodeReducer = new AndQueryNodeReducer(result);
-			for (Clause clause : clauses) {
+			for (Clause clause : andQueryNode.getClauses()) {
 				Operator op = clause.getOperator();
 				AlvisIRQueryNode qn = clause.getQueryNode().accept(this, param);
 				qn.accept(andQueryNodeReducer, op);
 			}
 			andQueryNodeReducer.finishTermList();
+			List<Clause> clauses = result.getClauses();
+			if (clauses.size() == 1) {
+				return clauses.get(0).getQueryNode();
+			}
 			return result;
 		}
 
