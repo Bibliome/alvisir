@@ -23,6 +23,7 @@ import org.xml.sax.SAXException;
 
 import fr.inra.mig_bibliome.alvisir.core.expand.ExpanderException;
 import fr.inra.mig_bibliome.alvisir.core.expand.NullTextExpander;
+import fr.inra.mig_bibliome.alvisir.core.expand.QueryNodeExpanderFactory;
 import fr.inra.mig_bibliome.alvisir.core.expand.TextExpander;
 import fr.inra.mig_bibliome.alvisir.core.expand.index.IndexBasedTextExpander;
 import fr.inra.mig_bibliome.alvisir.core.facet.CapitalizingFacetLabelFactory;
@@ -109,6 +110,19 @@ public class SearchConfigXMLSerializer {
 		result.setTextExpander(textExpander);
 		result.setIndex(index);
 		result.setDefaultFieldName(elt.getAttribute(AlvisIRConstants.XML_SEARCH_DEFAULT_FIELD));
+		if (elt.hasAttribute(AlvisIRConstants.XML_SEARCH_QUERY_EXPANSION)) {
+			String queryExpansion = elt.getAttribute(AlvisIRConstants.XML_SEARCH_QUERY_EXPANSION);
+			switch (queryExpansion) {
+				case AlvisIRConstants.XML_SEARCH_QUERY_EXPANSION_BASIC:
+					result.setQueryNodeExpanderFactory(QueryNodeExpanderFactory.BASIC);
+					break;
+				case AlvisIRConstants.XML_SEARCH_QUERY_EXPANSION_ADVANCED:
+					result.setQueryNodeExpanderFactory(QueryNodeExpanderFactory.ADVANCED);
+					break;
+				default:
+					throw new SearchConfigException("unknown search query expansion: " + queryExpansion + " (should be 'basic' or 'advanced')");
+			}
+		}
 		readXMLConfig(result, elt);
 		return result;
 	}
@@ -222,6 +236,7 @@ public class SearchConfigXMLSerializer {
 		else {
 			search.setDefaultNormalizationOptions(result);
 		}
+		System.err.println("result = " + result);
 	}
 	
 	private static void readXMLSearchCount(SearchConfig search, Element elt) {

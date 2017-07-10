@@ -96,6 +96,9 @@ public class AlvisIRConstants {
 	public static final String XML_SEARCH_INDEX_DIR = "index";
 	public static final String XML_SEARCH_EXPANDER_INDEX_DIR = "expander-index";
 	public static final String XML_SEARCH_DEFAULT_FIELD = "default-field";
+	public static final String XML_SEARCH_QUERY_EXPANSION = "query-expansion";
+	public static final String XML_SEARCH_QUERY_EXPANSION_BASIC = "basic";
+	public static final String XML_SEARCH_QUERY_EXPANSION_ADVANCED = "advanced";
 	public static final String XML_SEARCH_EXPANSION_TYPE = "type";
 	public static final String XML_SEARCH_NORMALIZATION = "normalization";
 	public static final String XML_SEARCH_FIELD = "field";
