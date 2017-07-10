@@ -68,7 +68,8 @@ public class QueryServices {
         }
         try {
             return new Configuration(context, uiConfigPath);
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             throw new IllegalArgumentException("Invalid configuration in " + uiConfigPath + " :\n " + e.getMessage());
         }
     }
