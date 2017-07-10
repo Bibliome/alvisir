@@ -1,0 +1,46 @@
+swagger: '2.0'
+info:
+  description: >-
+    The AlvisIR API returns text mining results extracted from  a specific
+    corpus of scientific publications.
+  version: 1.0.0
+  title: AlvisIR - Wheat literature
+  contact:
+    email: jean-baptiste.bohuon@inra.fr
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+host: bibliome.jouy.inra.fr
+basePath: /demo/wheat/alvisir/webapi/
+tags:
+  - name: Search
+    description: Search the index of text mining annotations
+    externalDocs:
+      description: Find out more
+      url: 'http://swagger.io'
+schemes:
+  - http
+paths:
+  /search:
+    get:
+      tags:
+        - search
+      summary: Pass a search request. Needs to be encoded
+      description: ''
+      operationId: get_result
+      produces:
+        - application/xml
+      parameters:
+        - name: q
+          in: query
+          type: string
+          description: >-
+            Query to pass to the search engine. May include "pmid=$PMID" as well
+            as (pmid=$PMID OR pmid=$PMID)
+          required: true
+      responses:
+        '405':
+          description: Method not allowed
+externalDocs:
+  description: Find out more about Swagger
+  url: 'http://swagger.io'
