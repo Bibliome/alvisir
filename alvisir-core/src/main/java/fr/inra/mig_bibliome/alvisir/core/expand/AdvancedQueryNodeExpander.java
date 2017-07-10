@@ -209,8 +209,10 @@ public class AdvancedQueryNodeExpander extends AlvisIRQueryNodeExpander {
 				for (int start = 0; start + len <= bigLen; ++start) {
 					List<String> l = normalizedTexts.subList(start, start + len);
 					String s = Strings.join(l, ' ');
-					if (searchExpansions(result, fieldName, s)) {
+					List<MatchExplanation> phraseResult = new ArrayList<MatchExplanation>();
+					if (searchExpansions(phraseResult, fieldName, s)) {
 						getTermListQueryNodeExplanations(result, fieldName, texts.subList(0, start), normalizedTexts.subList(0, start), len - 1);
+						result.addAll(phraseResult);
 						getTermListQueryNodeExplanations(result, fieldName, texts.subList(start + len, bigLen), normalizedTexts.subList(start + len, bigLen), len);
 						return;
 					}
