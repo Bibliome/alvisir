@@ -236,7 +236,7 @@ public class SearchConfigXMLSerializer {
 		else {
 			search.setDefaultNormalizationOptions(result);
 		}
-		System.err.println("result = " + result);
+//		System.err.println("result = " + result);
 	}
 	
 	private static void readXMLSearchCount(SearchConfig search, Element elt) {
