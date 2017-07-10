@@ -19,6 +19,7 @@ import fr.inra.mig_bibliome.alvisir.core.expand.explanation.RelationMatchExplana
 import fr.inra.mig_bibliome.alvisir.core.expand.explanation.TermMatchExplanation;
 import fr.inra.mig_bibliome.alvisir.core.index.NormalizationOptions;
 import fr.inra.mig_bibliome.alvisir.core.query.AlvisIRAndQueryNode;
+import fr.inra.mig_bibliome.alvisir.core.query.AlvisIRAndQueryNode.Operator;
 import fr.inra.mig_bibliome.alvisir.core.query.AlvisIRAnyQueryNode;
 import fr.inra.mig_bibliome.alvisir.core.query.AlvisIRNearQueryNode;
 import fr.inra.mig_bibliome.alvisir.core.query.AlvisIRNoExpansionQueryNode;
@@ -89,8 +90,7 @@ public class AdvancedQueryNodeExpander extends AlvisIRQueryNodeExpander {
 
 		@Override
 		public ExpansionResult visit(AlvisIRTermListQueryNode termListQueryNode, Void param) throws RuntimeException {
-			List<MatchExplanation> explanations = getTermListQueryNodeExplanations(termListQueryNode);
-			return expandAtom(explanations);
+			return getTermListQueryNodeExplanations(termListQueryNode);
 		}
 
 		@Override
@@ -192,17 +192,18 @@ public class AdvancedQueryNodeExpander extends AlvisIRQueryNodeExpander {
 			return result;
 		}
 
-		private List<MatchExplanation> getTermListQueryNodeExplanations(AlvisIRTermListQueryNode termListQueryNode) {
-			List<MatchExplanation> result = new ArrayList<MatchExplanation>();
+		private ExpansionResult getTermListQueryNodeExplanations(AlvisIRTermListQueryNode termListQueryNode) {
 			String fieldName = termListQueryNode.getField();
 			List<String> texts = termListQueryNode.getTexts();
 			NormalizationOptions normalizationOptions = expanderOptions.getNormalizationOptions(fieldName);
 			List<String> normalizedTexts = normalizationOptions.normalize(texts);
-			getTermListQueryNodeExplanations(result, fieldName, texts, normalizedTexts, texts.size());
-			return result;
+			return getTermListQueryNodeExplanations(termListQueryNode.getOperator(), fieldName, texts, normalizedTexts, texts.size());
 		}
 
-		private void getTermListQueryNodeExplanations(List<MatchExplanation> result, String fieldName, List<String> texts, List<String> normalizedTexts, int maxLen) {
+		private ExpansionResult getTermListQueryNodeExplanations(Operator op, String fieldName, List<String> texts, List<String> normalizedTexts, int maxLen) {
+			AlvisIRAndQueryNode queryNode = new AlvisIRAndQueryNode();
+			ExpansionResult result = new ExpansionResult();
+			result.setQueryNode(queryNode);
 			int bigLen = texts.size();
 			maxLen = Math.min(maxLen, bigLen);
 			for (int len = maxLen; len > 0; --len) {
@@ -211,17 +212,34 @@ public class AdvancedQueryNodeExpander extends AlvisIRQueryNodeExpander {
 					String s = Strings.join(l, ' ');
 					List<MatchExplanation> phraseResult = new ArrayList<MatchExplanation>();
 					if (searchExpansions(phraseResult, fieldName, s)) {
-						getTermListQueryNodeExplanations(result, fieldName, texts.subList(0, start), normalizedTexts.subList(0, start), len - 1);
-						result.addAll(phraseResult);
-						getTermListQueryNodeExplanations(result, fieldName, texts.subList(start + len, bigLen), normalizedTexts.subList(start + len, bigLen), len);
-						return;
+						ExpansionResult r;
+						if (start > 0 && len > 1) {
+							r = getTermListQueryNodeExplanations(op, fieldName, texts.subList(0, start), normalizedTexts.subList(0, start), len - 1);
+							result.mergeExplanations(r);
+							queryNode.addClause(op, r.getQueryNode());
+						}
+
+						r = expandAtom(phraseResult);
+						result.mergeExplanations(r);
+						queryNode.addClause(op, r.getQueryNode());
+						
+						if (start + len < bigLen && len > 0) {
+							r = getTermListQueryNodeExplanations(op, fieldName, texts.subList(start + len, bigLen), normalizedTexts.subList(start + len, bigLen), len);
+							result.mergeExplanations(r);
+							queryNode.addClause(op, r.getQueryNode());
+						}
+						
+						return result;
 					}
 					else if (len == 1) {
 						AlvisIRTermQueryNode termQueryNode = new AlvisIRTermQueryNode(fieldName, texts.get(start));
-						result.add(new TermMatchExplanation(termQueryNode, normalizedTexts.get(start)));
+						MatchExplanation matchExplanation = new TermMatchExplanation(termQueryNode, normalizedTexts.get(start));
+						result.addExplanation(matchExplanation);
+						queryNode.addClause(op, matchExplanation.getQueryNode());
 					}
 				}
 			}
+			return result;
 		}
 
 		private List<MatchExplanation> getPhraseQueryNodeExplanations(AlvisIRPhraseQueryNode phraseQueryNode) {
