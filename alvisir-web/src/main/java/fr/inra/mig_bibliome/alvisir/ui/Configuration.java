@@ -18,11 +18,16 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.servlet.ServletContext;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -78,7 +83,10 @@ public class Configuration {
             return null;
         }
         try {
-            Document configDocument = XMLUtils.getDocumentBuilder().parse(configIS);
+        	DocumentBuilderFactory docBuilderFactory = DocumentBuilderFactory.newInstance();
+        	DocumentBuilder docBuilder = docBuilderFactory.newDocumentBuilder();
+            Document configDocument = docBuilder.parse(configIS);
+//            Document configDocument = XMLUtils.getDocumentBuilder().parse(configIS);
             configIS.close();
             Element root = configDocument.getDocumentElement();
             root.setAttribute("source", uiConfigPath);
@@ -93,6 +101,10 @@ public class Configuration {
             Logger.getLogger(Configuration.class.getName()).log(Level.SEVERE, "Can not read configuration in {0}", configFile.getAbsoluteFile());
             throw new RuntimeException(ex);
         }
+		catch (ParserConfigurationException ex) {
+            Logger.getLogger(Configuration.class.getName()).log(Level.SEVERE, "Can not read configuration in {0}", configFile.getAbsoluteFile());
+            throw new RuntimeException(ex);
+		}
     }
 
     private final Document configDocument;
