@@ -333,53 +333,55 @@ function initOntoBrowser() {
 
 //- -------------------------------------------------------------------------- -
 function initHelp() {
-    //var cheetSheet = $('<div id="help-content" style="display:none;"> <div id="cheat-sheet" class="cheat-sheet-panel">  <h2 >Cheat sheet</h2>  <table> <tr> <th rowspan="3">term</th> <td> <code>transcription</code> </td> </tr> <tr> <td> <code>lec2</code> </td> </tr> <tr> <td> <code>sigma\(K\)</code> </td> </tr> <tr> <td colspan="2"> <em>expansion looks for each term</em> </td> </tr> <tr> <td colspan="2"> <em>characters that require escaping:</em>  <code>( ) [ ] ~ =</code> </td> </tr> <tr> <td colspan="2"> <em> <strong>any</strong> other character does not require escaping</em> </td> </tr> </table> <table> <tr> <th rowspan="2">phrase</th> <td> <code>"Bacillus subtilis"</code> </td> </tr> <tr> <td> <code>"therapeutical treatment"</code> </td> </tr> <tr> <td colspan="2"> <em>expansion looks for each phrase</em> </td> </tr> <tr> <td colspan="2"> <em>documents must contain all terms one next to another in the specified order</em> </td> </tr> </table> <table> <tr> <th rowspan="2">prefix</th> <td> <code>Bacill*</code> </td> </tr> <tr> <td> <code>pharma*</code> </td> </tr> <tr> <td colspan="2"> <em>expansion does not look for prefixes</em> </td> </tr> </table> <table> <tr> <th rowspan="3">and</th> <td> <code>obesity and diabete</code> </td> </tr> <tr> <td> <code>bacteria AND transcription</code> </td> </tr> <tr> <td> <code>obesity diabete</code> </td> </tr> <tr> <td colspan="2"> <em>implicit operator</em> </td> </tr> </table> <table> <tr> <th rowspan="2">or</th> <td> <code>inhibition or activation</code> </td> </tr> <tr> <td> <code>diabete OR hypertension</code> </td> </tr> </table> <table> <tr> <th rowspan="2">not</th> <td> <code>regulation not inhibition</code> </td> </tr> <tr> <td> <code>diabete NOT obesity</code> </td> </tr> <tr> <td colspan="2"> <em>binary operator (requires left operand)</em> </td> </tr> </table> <table> <tr> <th rowspan="2">field</th> <td> <code>title=oral</code> </td> </tr> <tr> <td> <code>kind=a1</code> </td> </tr> <tr> <td colspan="2"> <em>default field depends on the search engine instance</em> </td> </tr> <tr> <td colspan="2"> <em>some SE instances may define alias fields</em> </td> </tr> </table>  <table> <tr> <th rowspan="2">near</th> <td> <code>food ~4 bacteria</code> </td> </tr> <tr> <td> <code>particle ~5 diameter</code> </td> </tr> <tr> <td colspan="2"> <em>field qualifiers are not allowed inside near operands</em> </td> </tr> </table>  <table> <tr> <th rowspan="4">grouping</th> <td> <code>(diabete not obes*) or (diabete non-obese)</code> </td> </tr> <tr> <td> <code>(inhibition or activation) transcription</code> </td> </tr> <tr> <td> <code>(melanoma or cancer or tumor) ~4 human</code> </td> </tr> <tr> <td> <code>(kind=A1 or kind=B1) diabet*</code> </td> </tr> <tr> <td colspan="2"> <em>operator precedence without parentheses:</em>  <code>or > and > not > ~N/~REL</code> </td> </tr> </table>  <table> <tr> <th rowspan="2">relations</th> <td> <code>bacteria ~loc gut</code> </td> </tr> <tr> <td> <code>"produit fini" ~traite maladie</code> </td> </tr> </table>  <table> <tr> <th rowspan="2">no expansion</th> <td> <code>[bacteria]</code> </td> </tr> <tr> <td> <code>[human or mouse]</code> </td> </tr> <tr> <td colspan="2"> <em>expansion is turned off inside brackets</em> </td> </tr> </table>  <p></p> </div> </div>')
-            //.appendTo('body');
+//    var cheetSheet = $('<div id="help-content" style="display:none;"> <div id="cheat-sheet" class="cheat-sheet-panel">  <h2 >Cheat sheet</h2>  <table> <tr> <th rowspan="3">term</th> <td> <code>transcription</code> </td> </tr> <tr> <td> <code>lec2</code> </td> </tr> <tr> <td> <code>sigma\(K\)</code> </td> </tr> <tr> <td colspan="2"> <em>expansion looks for each term</em> </td> </tr> <tr> <td colspan="2"> <em>characters that require escaping:</em>  <code>( ) [ ] ~ =</code> </td> </tr> <tr> <td colspan="2"> <em> <strong>any</strong> other character does not require escaping</em> </td> </tr> </table> <table> <tr> <th rowspan="2">phrase</th> <td> <code>"Bacillus subtilis"</code> </td> </tr> <tr> <td> <code>"therapeutical treatment"</code> </td> </tr> <tr> <td colspan="2"> <em>expansion looks for each phrase</em> </td> </tr> <tr> <td colspan="2"> <em>documents must contain all terms one next to another in the specified order</em> </td> </tr> </table> <table> <tr> <th rowspan="2">prefix</th> <td> <code>Bacill*</code> </td> </tr> <tr> <td> <code>pharma*</code> </td> </tr> <tr> <td colspan="2"> <em>expansion does not look for prefixes</em> </td> </tr> </table> <table> <tr> <th rowspan="3">and</th> <td> <code>obesity and diabete</code> </td> </tr> <tr> <td> <code>bacteria AND transcription</code> </td> </tr> <tr> <td> <code>obesity diabete</code> </td> </tr> <tr> <td colspan="2"> <em>implicit operator</em> </td> </tr> </table> <table> <tr> <th rowspan="2">or</th> <td> <code>inhibition or activation</code> </td> </tr> <tr> <td> <code>diabete OR hypertension</code> </td> </tr> </table> <table> <tr> <th rowspan="2">not</th> <td> <code>regulation not inhibition</code> </td> </tr> <tr> <td> <code>diabete NOT obesity</code> </td> </tr> <tr> <td colspan="2"> <em>binary operator (requires left operand)</em> </td> </tr> </table> <table> <tr> <th rowspan="2">field</th> <td> <code>title=oral</code> </td> </tr> <tr> <td> <code>kind=a1</code> </td> </tr> <tr> <td colspan="2"> <em>default field depends on the search engine instance</em> </td> </tr> <tr> <td colspan="2"> <em>some SE instances may define alias fields</em> </td> </tr> </table>  <table> <tr> <th rowspan="2">near</th> <td> <code>food ~4 bacteria</code> </td> </tr> <tr> <td> <code>particle ~5 diameter</code> </td> </tr> <tr> <td colspan="2"> <em>field qualifiers are not allowed inside near operands</em> </td> </tr> </table>  <table> <tr> <th rowspan="4">grouping</th> <td> <code>(diabete not obes*) or (diabete non-obese)</code> </td> </tr> <tr> <td> <code>(inhibition or activation) transcription</code> </td> </tr> <tr> <td> <code>(melanoma or cancer or tumor) ~4 human</code> </td> </tr> <tr> <td> <code>(kind=A1 or kind=B1) diabet*</code> </td> </tr> <tr> <td colspan="2"> <em>operator precedence without parentheses:</em>  <code>or > and > not > ~N/~REL</code> </td> </tr> </table>  <table> <tr> <th rowspan="2">relations</th> <td> <code>bacteria ~loc gut</code> </td> </tr> <tr> <td> <code>"produit fini" ~traite maladie</code> </td> </tr> </table>  <table> <tr> <th rowspan="2">no expansion</th> <td> <code>[bacteria]</code> </td> </tr> <tr> <td> <code>[human or mouse]</code> </td> </tr> <tr> <td colspan="2"> <em>expansion is turned off inside brackets</em> </td> </tr> </table>  <p></p> </div> </div>')
+//    .appendTo('body');
     
     $.get('../html/cheatsheet.html')
     .done(function(data) {
-    	$(data).appendTo('body');
-    	console.log(data);
+    	$(data)
+    	.attr('id', 'help-content')
+    	.css('display', 'none')
+    	.appendTo('body');
+
+        var helpDisplayed = false;
+        $("#info-btn").click(function() {
+            if (helpDisplayed) {
+                $('#cheat-sheet').dialog('close');
+            }
+            else {
+                var searchBtn = $('#search');
+                var position = searchBtn.position();
+                var dialogLeft = position.left + searchBtn.width() + 10;
+                var dialogHeight = $(window).height() - 2 * 10;
+                var dialogWidth = $(window).width() - dialogLeft - 10;
+
+                $('#cheat-sheet').dialog({
+                    title: 'Query syntax elements',
+                    top: 10,
+                    left: dialogLeft,
+                    width: dialogWidth,
+                    height: dialogHeight,
+                    closed: false,
+                    modal: false,
+                    resizable: true,
+                    iconCls: 'icon-info',
+                    onOpen: function() {
+                        helpDisplayed = true;
+                    },
+                    onClose: function() {
+                        helpDisplayed = false;
+                    }
+                });
+
+                $('#cheat-sheet').dialog('dialog').addClass('cheat-sheet-panel');
+            }
+
+        });
     })
     .fail(function(data) {
     	console.log(data);
     })
     ;
-
-    var helpDisplayed = false;
-    $("#info-btn").click(function() {
-        if (helpDisplayed) {
-            $('#cheat-sheet').dialog('close');
-        }
-        else {
-            var searchBtn = $('#search');
-            var position = searchBtn.position();
-            var dialogLeft = position.left + searchBtn.width() + 10;
-            var dialogHeight = $(window).height() - 2 * 10;
-            var dialogWidth = $(window).width() - dialogLeft - 10;
-
-            $('#cheat-sheet').dialog({
-                title: 'Query syntax elements',
-                top: 10,
-                left: dialogLeft,
-                width: dialogWidth,
-                height: dialogHeight,
-                closed: false,
-                modal: false,
-                resizable: true,
-                iconCls: 'icon-info',
-                onOpen: function() {
-                    helpDisplayed = true;
-                },
-                onClose: function() {
-                    helpDisplayed = false;
-                }
-            });
-
-            $('#cheat-sheet').dialog('dialog').addClass('cheat-sheet-panel');
-        }
-
-    });
 
 }
 
