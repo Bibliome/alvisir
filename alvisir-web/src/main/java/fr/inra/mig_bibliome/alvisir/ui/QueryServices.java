@@ -410,4 +410,22 @@ public class QueryServices {
     	}
     	return MediaType.APPLICATION_OCTET_STREAM;
     }
+    
+    @GET
+    @Produces(MediaType.TEXT_HTML)
+    @Path("resources/html/{filename}.html")
+    public Response getHTML(
+    		@PathParam("filename") String filename
+    		) {
+    	InputStream is = AssetsManager.getDataStream(context, getConfig(), filename);
+    	if (is == null) {
+    		return Response
+    				.status(Status.NOT_FOUND)
+    				.build();
+    	}
+    	return Response
+    			.ok(is)
+    			.expires(new Date())
+    			.build();
+    }
 }

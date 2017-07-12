@@ -27,12 +27,17 @@ class AssetsManager /* "assets management" lol */ {
 	private static final String BACKGROUND_RIGHT_DEFAULT_RESOURCE = "/images/background-right.jpg";
 	private static final String BACKGROUND_RIGHT_DISPLAY_PARAM = "background-right-jpg-path";
 	
+	private static final String CHEATSHEET_FILENAME = "cheatsheet";
+	private static final String CHEATSHEET_DEFAULT_RESOURCE = "/html/cheatsheet.html";
+	private static final String CHEATSHEET_DISPLAY_PARAM = "cheatsheet-html-path";
+	
 	static InputStream getDataStream(ServletContext context, Configuration uiConfig, String filename) {
 		switch (filename) {
 			case LOGO_FILENAME: return getDataStream(context, uiConfig, LOGO_DISPLAY_PARAM, LOGO_DEFAULT_RESOURCE);
 			case BACKGROUND_FILENAME: return getDataStream(context, uiConfig, BACKGROUND_DISPLAY_PARAM, BACKGROUND_DEFAULT_RESOURCE);
 			case BACKGROUND_LEFT_FILENAME: return getDataStream(context, uiConfig, BACKGROUND_LEFT_DISPLAY_PARAM, BACKGROUND_LEFT_DEFAULT_RESOURCE);
 			case BACKGROUND_RIGHT_FILENAME: return getDataStream(context, uiConfig, BACKGROUND_RIGHT_DISPLAY_PARAM, BACKGROUND_RIGHT_DEFAULT_RESOURCE);
+			case CHEATSHEET_FILENAME: return getDataStream(context, uiConfig, CHEATSHEET_DISPLAY_PARAM, CHEATSHEET_DEFAULT_RESOURCE);
 		}
 		return null;
 	}
