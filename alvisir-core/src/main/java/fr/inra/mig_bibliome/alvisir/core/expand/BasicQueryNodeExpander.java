@@ -123,7 +123,7 @@ public class BasicQueryNodeExpander extends AlvisIRQueryNodeExpander {
 //			System.err.println("normalizedRelation = " + normalizedRelation);
 			ExpansionResult leftExpansion = expandQuery(fieldOptions, expanderOptions, relationQueryNode.getLeft());
 			ExpansionResult rightExpansion = expandQuery(fieldOptions, expanderOptions, relationQueryNode.getRight());
-			AlvisIRRelationQueryNode queryNode = new AlvisIRRelationQueryNode(fieldName, normalizedRelation, leftExpansion.getQueryNode(), rightExpansion.getQueryNode());
+			AlvisIRRelationQueryNode queryNode = new AlvisIRRelationQueryNode(fieldName, relation, leftExpansion.getQueryNode(), rightExpansion.getQueryNode());
 			ExpansionResult result = new ExpansionResult();
 			result.setQueryNode(queryNode);
 			result.mergeExplanations(leftExpansion);
