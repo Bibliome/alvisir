@@ -31,7 +31,7 @@ public class RelationMatchExplanation extends MatchExplanation {
 
 	@Override
 	public AlvisIRQueryNode getQueryNode() {
-		return new AlvisIRRelationQueryNode(getFieldName(), normalizedRelation, left, right);
+		return new AlvisIRRelationQueryNode(getFieldName(), relation, left, right);
 	}
 
 	@Override
