@@ -446,7 +446,7 @@ a.doc-title:hover {
     float: left; 
     margin-left: 30px;
     margin-top: 5px;
-    color: steelblue;
+    color: black;
 }
 
 .doc-field-full-author .fragment {
@@ -458,7 +458,7 @@ a.doc-title:hover {
     float: left; 
     margin-left: 30px;
     margin-top: 5px;
-    color: steelblue;
+    color: black;
 }
 
 .doc-field-year { 
@@ -466,7 +466,7 @@ a.doc-title:hover {
     float: left; 
     margin-left: 30px;
     margin-top: 5px;
-    color: steelblue;
+    color: black;
 }
 
 .doc-field-journal { 
@@ -474,7 +474,7 @@ a.doc-title:hover {
     float: left; 
     margin-left: 30px;
     margin-top: 5px;
-    color: steelblue;
+    color: black;
 }
 .doc-field-abstract { clear: both; margin-left: 5px; margin-bottom: 5px; }
 .doc-field-abstract-header { font-weight: bold; margin-right: 5px; }
