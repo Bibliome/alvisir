@@ -441,18 +441,40 @@ a.doc-title:hover {
 
 
 
+.doc-field-full-author { 
+    clear: both; 
+    float: left; 
+    margin-left: 30px;
+    margin-top: 5px;
+    color: steelblue;
+}
+
+.doc-field-full-author .fragment {
+    margin-right: 10px;
+}
+
+.doc-field-author { 
+    clear: both; 
+    float: left; 
+    margin-left: 30px;
+    margin-top: 5px;
+    color: steelblue;
+}
+
 .doc-field-year { 
     clear: both; 
     float: left; 
-    margin: 5px 5px 5px 30px; 
+    margin-left: 30px;
+    margin-top: 5px;
     color: steelblue;
 }
+
 .doc-field-journal { 
+    clear: both; 
     float: left; 
-    margin-top: 5px; 
-    font-style: italic; 
+    margin-left: 30px;
+    margin-top: 5px;
     color: steelblue;
-    font-weight: bold;
 }
 .doc-field-abstract { clear: both; margin-left: 5px; margin-bottom: 5px; }
 .doc-field-abstract-header { font-weight: bold; margin-right: 5px; }
@@ -688,7 +710,7 @@ rect.relation[data-highlighted="true"] {
 
 .textcontainer {
     line-height:22px;
-    padding-bottom: 11px;
+    /*padding-bottom: 11px;*/
     overflow: visible;
 }
 
