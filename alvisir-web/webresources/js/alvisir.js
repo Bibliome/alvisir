@@ -422,7 +422,7 @@ function queryWithOnto(refineCurrentQuery, isAndOperator) {
     var concepts = _.map(ob.selectedConcepts(), function(d) {
         return d.name;
     });
-    changeQueryAndSubmit(refineCurrentQuery, isAndOperator, concepts, true);
+    changeQueryAndSubmit(refineCurrentQuery, isAndOperator, concepts, /*true*/false);
 
 }
 
