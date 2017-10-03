@@ -689,7 +689,9 @@
     </xsl:template>
 
     <xsl:template match="fragment">
-        <xsl:apply-templates select="highlight|text()"/>
+    	<div class="frag">
+	        <xsl:apply-templates select="highlight|text()"/>
+	    </div>
     </xsl:template>
 
     <xsl:template match="highlight">
