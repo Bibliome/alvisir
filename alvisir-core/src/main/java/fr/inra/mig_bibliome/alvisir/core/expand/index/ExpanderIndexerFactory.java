@@ -29,6 +29,7 @@ import org.bibliome.util.streams.PatternFileFilter;
 import org.bibliome.util.streams.SourceStream;
 import org.bibliome.util.streams.StreamFactory;
 import org.bibliome.util.xml.XMLUtils;
+import org.obo.dataadapter.OBOParseException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
