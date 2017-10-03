@@ -292,7 +292,7 @@ public class SearchConfigXMLSerializer {
 
 	private static final FacetSubQueryType getFacetSubQueryType(Element elt) {
 		if (!elt.hasAttribute(AlvisIRConstants.XML_SEARCH_FACET_SUB_QUERY_TYPE)) {
-			return FacetSubQueryType.PHRASE;
+			return FacetSubQueryType.RAW;
 		}
 		String s = elt.getAttribute(AlvisIRConstants.XML_SEARCH_FACET_SUB_QUERY_TYPE);
 		switch (s.toLowerCase()) {
