@@ -137,6 +137,7 @@
       <version>${lucene.version}</version>
     </dependency>
 
+    <!--
     <dependency>
       <groupId>org.apache.jena</groupId>
       <artifactId>jena-core</artifactId>
@@ -147,7 +148,8 @@
       <groupId>org.apache.jena</groupId>
       <artifactId>jena-arq</artifactId>
       <version>3.2.0</version>
-    </dependency>
+      </dependency>
+      -->
   </dependencies>
 
   <properties>
