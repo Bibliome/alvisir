@@ -299,6 +299,7 @@ public class SearchConfigXMLSerializer {
 		case "term": return FacetSubQueryType.TERM;
 		case "phrase": return FacetSubQueryType.PHRASE;
 		case "prefix": return FacetSubQueryType.PREFIX;
+		case "raw": return FacetSubQueryType.RAW;
 		}
 		return FacetSubQueryType.PHRASE;
 	}

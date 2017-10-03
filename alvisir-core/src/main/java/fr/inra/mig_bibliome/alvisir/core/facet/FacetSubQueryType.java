@@ -15,6 +15,13 @@ public enum FacetSubQueryType {
 		}
 	},
 	
+	RAW {
+		@Override
+		public String getSubQuery(String field, String text) {
+			return field + "=" + QueryParserUtils.quotePhrase(text);
+		}
+	},
+	
 	PHRASE {
 		@Override
 		public String getSubQuery(String field, String text) {
