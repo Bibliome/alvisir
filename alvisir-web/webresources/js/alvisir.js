@@ -398,7 +398,7 @@ function changeQueryAndSubmit(refineCurrentQuery, isAndOperator, newTerms, escap
             var escapedLabel = term.replace(reSpecialChars, "\\$1").replace(reOperators, "$1\\$2");
             newQry += joinTerms + '"' + escapedLabel + '"';
         } else {
-            newQry += joinTerms + term;
+            newQry += joinTerms + '(' + term + ')';
         }
         joinTerms = isAndOperator ? ' ' : ' or ';
     });
