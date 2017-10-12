@@ -18,5 +18,5 @@ fi
 
 cp -f -r $LIB_FILES "$LIB_DIR"
 
-./make-java-launcher.sh "$LIB_DIR" "$BIN_DIR"/alvisir-index-expander fr.inra.mig_bibliome.alvisir.core.expand.index.ExpanderIndexerFactory
-./make-java-launcher.sh "$LIB_DIR" "$BIN_DIR"/alvisir-search         fr.inra.mig_bibliome.alvisir.core.AlvisIRCLI
+./make-java-launcher.sh "$LIB_DIR" "$BIN_DIR"/alvisir-index-expander fr.inra.maiage.bibliome.alvisir.core.expand.index.ExpanderIndexerFactory
+./make-java-launcher.sh "$LIB_DIR" "$BIN_DIR"/alvisir-search         fr.inra.maiage.bibliome.alvisir.core.AlvisIRCLI

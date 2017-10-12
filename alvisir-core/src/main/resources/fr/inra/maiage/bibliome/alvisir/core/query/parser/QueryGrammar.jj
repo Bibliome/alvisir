@@ -1,0 +1,163 @@
+/**
+ * JavaCC template file created by SF JavaCC plugin 1.5.17+ wizard for JavaCC 1.5.0+
+ */options{  JDK_VERSION = "1.5";  static = false;}PARSER_BEGIN(QueryParser)package fr.inra.maiage.bibliome.alvisir.core.query.parser;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Collection;
+import java.util.Collections;
+
+import fr.inra.maiage.bibliome.alvisir.core.AlvisIRIndex;
+import fr.inra.maiage.bibliome.alvisir.core.SearchConfig;
+import fr.inra.maiage.bibliome.alvisir.core.index.IndexGlobalAttributes;
+
+import fr.inra.maiage.bibliome.alvisir.core.query.AlvisIRQueryNodeReducer;
+import fr.inra.maiage.bibliome.alvisir.core.query.AlvisIRAndQueryNode;
+import fr.inra.maiage.bibliome.alvisir.core.query.AlvisIRAndQueryNode.Operator;
+import fr.inra.maiage.bibliome.alvisir.core.query.AlvisIRNearQueryNode;
+import fr.inra.maiage.bibliome.alvisir.core.query.AlvisIRNoExpansionQueryNode;
+import fr.inra.maiage.bibliome.alvisir.core.query.AlvisIROrQueryNode;
+import fr.inra.maiage.bibliome.alvisir.core.query.AlvisIRPhraseQueryNode;
+import fr.inra.maiage.bibliome.alvisir.core.query.AlvisIRQueryNode;
+import fr.inra.maiage.bibliome.alvisir.core.query.AlvisIRRelationQueryNode;
+import fr.inra.maiage.bibliome.alvisir.core.query.AlvisIRTermQueryNode;
+import fr.inra.maiage.bibliome.alvisir.core.query.AlvisIRQueryNodeReducer;
+
+public class QueryParser {
+}PARSER_END(QueryParser)SKIP :{  " "| "\r"| "\t"| "\n"}TOKEN : /* OPERATORS */{
+  < AND      : ("and"|"AND") >
+| < OR       : ("or"|"OR") >
+| < BUT      : ("not"|"NOT") >
+| < FIELD    : "=" >
+| < LPAREN   : "(" >
+| < RPAREN   : ")" >
+| < LBRACKET : "[" >
+| < RBRACKET : "]" >
+| < SLOP     : "~" >
+| < QUOTE    : "\"" >
+| < NUMBER   : (["0"-"9"])+ >
+| < TEXT : (
+	(~["=","(",")","[","]","~"," ","\n","\t","\r","\""])
+  | ("\\" ~[])
+  )+ >}
+public AlvisIRQueryNode query(SearchConfig searchConfig):{
+  AlvisIRQueryNode result;}{
+  result=or(searchConfig, searchConfig.getDefaultFieldName(), false) < EOF >  { return AlvisIRQueryNodeReducer.reduce(result); }}
+
+private AlvisIRQueryNode or(SearchConfig searchConfig, String field, boolean near):{
+  AlvisIROrQueryNode result = new AlvisIROrQueryNode();
+  AlvisIRQueryNode clause;
+}{
+  clause=and(searchConfig, field, near) { result.addClause(clause); } (< OR > clause=and(searchConfig, field, near) { result.addClause(clause); })*  { return result; }}
+
+private AlvisIRQueryNode and(SearchConfig searchConfig, String field, boolean near):
+{
+  AlvisIRAndQueryNode result = new AlvisIRAndQueryNode();
+  AlvisIRQueryNode clause;
+  Operator op;}{
+  clause=field(searchConfig, field, near) { result.addClause(Operator.AND, clause); } (op=andOperator(near) clause=field(searchConfig, field, near) { result.addClause(op, clause); })*  { return result; }
+}
+
+private Operator andOperator(boolean near):{}{
+  < AND > { return Operator.AND; }
+| < BUT >
+	{
+	  if (near) {
+	    throw new ParseException("'not' operator is not allowed inside near queries");	  }
+	  return Operator.BUT;
+	}
+| { return Operator.AND; }
+}
+
+private AlvisIRQueryNode field(SearchConfig searchConfig, String field, boolean near):{
+  AlvisIRQueryNode result;
+}{
+  (LOOKAHEAD(2) field=text() < FIELD >  {
+    if (near) {
+      throw new ParseException("field qualification is not allowed inside near queries");    }  })? result=near(searchConfig, field, near)  { return result; }}
+
+private AlvisIRQueryNode near(SearchConfig searchConfig, String field, boolean near):
+{
+  AlvisIRQueryNode result;
+}{
+  result=atom(searchConfig, field, near) result=nearContinuation(searchConfig, field, near, result)
+  { return result; }}
+
+private AlvisIRQueryNode nearContinuation(SearchConfig searchConfig, String field, boolean near, AlvisIRQueryNode left):
+{
+  AlvisIRQueryNode right;
+  int slop = -1;
+  String relation1 = null;
+  String relation2;
+  AlvisIRIndex index = searchConfig.getIndex();
+  IndexGlobalAttributes globalAttributes = index.getGlobalAttributes();
+  Map<String,String[]> relationInfo = globalAttributes.getRelationInfo();
+  Collection<String> allowedRelations = relationInfo == null ? Collections.EMPTY_LIST : relationInfo.keySet();
+}
+{
+  LOOKAHEAD({
+    getToken(1).kind == TEXT && getToken(2).kind == TEXT && allowedRelations.contains(QueryParserUtils.normalizeRelationName(getToken(1).image + getToken(2).image))
+  })
+  relation1=strictText() relation2=strictText() right=atom(searchConfig, field, true)
+  {
+	relation1 = QueryParserUtils.normalizeRelationName(relation1 + relation2);
+	return new AlvisIRRelationQueryNode(field, relation1, left, right);
+  }
+  
+| LOOKAHEAD({
+    getToken(1).kind == TEXT && allowedRelations.contains(QueryParserUtils.normalizeRelationName(getToken(1).image))
+  })
+  relation1=strictText() right=atom(searchConfig, field, true)
+  {
+	relation1 = QueryParserUtils.normalizeRelationName(relation1);
+	return new AlvisIRRelationQueryNode(field, relation1, left, right);
+  }
+
+| < SLOP > (slop=number() | relation1=strictText()) right=atom(searchConfig, field, true)
+  {
+    if (relation1 == null) {
+      return new AlvisIRNearQueryNode(field, slop, left, right);
+    }
+    return new AlvisIRRelationQueryNode(field, relation1, left, right);
+  }
+
+| { return left; }
+}
+
+private AlvisIRQueryNode atom(SearchConfig searchConfig, String field, boolean near):
+{
+  AlvisIRQueryNode result;
+  AlvisIRPhraseQueryNode phraseQueryNode;
+  String text;
+}{
+  < LPAREN > result=or(searchConfig, field, near) < RPAREN > { return result; }
+| text=text() { return QueryParserUtils.getTextQueryNode(field, text); }
+| < QUOTE > { phraseQueryNode = new AlvisIRPhraseQueryNode(field, 1); } (text=text() { phraseQueryNode.addText(text); })+ < QUOTE > { return phraseQueryNode; }
+| < LBRACKET > result=or(searchConfig, field, near) < RBRACKET > { return new AlvisIRNoExpansionQueryNode(result); }  
+}
+
+private String text():
+{
+  Token t;
+}
+{
+  t=< TEXT > { return QueryParserUtils.unescapeText(t.image); }
+| t=< NUMBER > { return t.image; }
+}
+
+private String strictText():
+{
+  Token t;
+}
+{
+  t=< TEXT > { return QueryParserUtils.unescapeText(t.image); }
+}
+
+private int number():
+{
+  Token t;
+}
+{
+  t=< NUMBER > { return Integer.parseInt(t.image); }
+}

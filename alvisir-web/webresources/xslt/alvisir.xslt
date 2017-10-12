@@ -326,7 +326,7 @@
                         <div data-options="region:'east', border:true, collapsible:true, split:true" style="width:240px;">
                             <xsl:if test="search-result/query/query-string != ''">
                                 <div id="query-expansion">
-                                    <xsl:apply-templates select="search-result/query-expansion//explanation[@class != 'fr.inra.mig_bibliome.alvisir.core.expand.explanation.CompositeExpansionExplanation']"/>
+                                    <xsl:apply-templates select="search-result/query-expansion//explanation[@class != 'fr.inra.maiage.bibliome.alvisir.core.expand.explanation.CompositeExpansionExplanation']"/>
                                 </div>
                             </xsl:if>
                         </div>
@@ -545,7 +545,7 @@
 		                <div style="display:none;">
                     <ul>
                         <xsl:for-each select="field[@name = $title-field]/fragment//highlight[@ord='0']">
-                            <xsl:if test="key('explById',@explanation)[@class = 'fr.inra.mig_bibliome.alvisir.core.expand.explanation.RelationMatchExplanation']">
+                            <xsl:if test="key('explById',@explanation)[@class = 'fr.inra.maiage.bibliome.alvisir.core.expand.explanation.RelationMatchExplanation']">
                                 <xsl:variable name="relation">
                                     <xsl:value-of select="key('explById',@explanation)/@relation"/>
                                 </xsl:variable>
@@ -655,7 +655,7 @@
                 <div style="display:none;">
                     <ul>
                         <xsl:for-each select="field[@name = $field-name]/fragment//highlight[@ord='0']">
-                            <xsl:if test="key('explById',@explanation)[@class = 'fr.inra.mig_bibliome.alvisir.core.expand.explanation.RelationMatchExplanation']">
+                            <xsl:if test="key('explById',@explanation)[@class = 'fr.inra.maiage.bibliome.alvisir.core.expand.explanation.RelationMatchExplanation']">
                                 <xsl:variable name="relation">
                                     <xsl:value-of select="key('explById',@explanation)/@relation"/>
                                 </xsl:variable>
@@ -699,7 +699,7 @@
             <xsl:value-of select="@explanation"/>
         </xsl:variable>
         <xsl:choose>
-            <xsl:when test="key('explById',$expl)[@class != 'fr.inra.mig_bibliome.alvisir.core.expand.explanation.RelationMatchExplanation']">
+            <xsl:when test="key('explById',$expl)[@class != 'fr.inra.maiage.bibliome.alvisir.core.expand.explanation.RelationMatchExplanation']">
                 <span>
                     <xsl:attribute name="class">
                         <xsl:value-of select="concat('highlight_', @explanation)"/>
@@ -785,10 +785,10 @@
                     <xsl:when test="@label and @type">
                         <xsl:value-of select="concat(@label, ' (', @type, ')')"/>
                     </xsl:when>
-                    <xsl:when test="@class = 'fr.inra.mig_bibliome.alvisir.core.expand.explanation.PrefixMatchExplanation'">
+                    <xsl:when test="@class = 'fr.inra.maiage.bibliome.alvisir.core.expand.explanation.PrefixMatchExplanation'">
                         <xsl:value-of select="concat(@prefix, '*')"/>
                     </xsl:when>
-                    <xsl:when test="@class = 'fr.inra.mig_bibliome.alvisir.core.expand.explanation.PhraseMatchExplanation'">
+                    <xsl:when test="@class = 'fr.inra.maiage.bibliome.alvisir.core.expand.explanation.PhraseMatchExplanation'">
                         <xsl:text>"</xsl:text>
                         <xsl:for-each select="term">
                             <xsl:if test="position() > 1">
@@ -798,10 +798,10 @@
                         </xsl:for-each>
                         <xsl:text>"</xsl:text>
                     </xsl:when>
-                    <xsl:when test="@class = 'fr.inra.mig_bibliome.alvisir.core.expand.explanation.TermMatchExplanation'">
+                    <xsl:when test="@class = 'fr.inra.maiage.bibliome.alvisir.core.expand.explanation.TermMatchExplanation'">
                         <xsl:value-of select="@text"/>
                     </xsl:when>
-                    <xsl:when test="@class = 'fr.inra.mig_bibliome.alvisir.core.expand.explanation.RelationMatchExplanation'">
+                    <xsl:when test="@class = 'fr.inra.maiage.bibliome.alvisir.core.expand.explanation.RelationMatchExplanation'">
                         <xsl:value-of select="@relation"/>
                         <xsl:text> (Relation)</xsl:text>
                     </xsl:when>

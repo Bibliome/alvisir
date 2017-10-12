@@ -13,7 +13,7 @@ see implementation details http://jersey.java.net/nonav/documentation/latest/jax
 		
         <init-param>
             <param-name>jersey.config.server.provider.packages</param-name>
-            <param-value>fr.inra.mig_bibliome.alvisir.ui</param-value>
+            <param-value>fr.inra.maiage.bibliome.alvisir.ui</param-value>
         </init-param>
         <load-on-startup>1</load-on-startup>
 		
