@@ -6,8 +6,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
-import org.bibliome.util.Strings;
-
+import fr.inra.maiage.bibliome.util.Strings;
 import fr.inra.mig_bibliome.alvisir.core.FieldOptions;
 import fr.inra.mig_bibliome.alvisir.core.expand.explanation.AnyMatchExplanation;
 import fr.inra.mig_bibliome.alvisir.core.expand.explanation.CompositeExpansionExplanation;

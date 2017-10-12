@@ -6,7 +6,8 @@ import java.util.Set;
 
 import org.apache.lucene.document.Document;
 import org.apache.lucene.index.IndexReader;
-import org.bibliome.util.defaultmap.DefaultMap;
+
+import fr.inra.maiage.bibliome.util.defaultmap.DefaultMap;
 
 /**
  * Field value builder that uses the lucene index stored fields.

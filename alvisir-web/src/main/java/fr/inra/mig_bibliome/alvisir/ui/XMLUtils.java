@@ -53,7 +53,7 @@ public class XMLUtils {
 
     public static String documentToString(Document document) {
         try (StringWriter writer = new StringWriter()) {
-            org.bibliome.util.xml.XMLUtils.writeDOMToFile(document, null, writer);
+            fr.inra.maiage.bibliome.util.xml.XMLUtils.writeDOMToFile(document, null, writer);
             writer.flush();
             return writer.toString();
         } catch (TransformerFactoryConfigurationError | IOException ex) {

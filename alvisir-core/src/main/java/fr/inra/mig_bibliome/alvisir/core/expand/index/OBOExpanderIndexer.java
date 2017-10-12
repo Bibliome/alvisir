@@ -5,13 +5,14 @@ import java.util.logging.Logger;
 
 import org.apache.lucene.document.Document;
 import org.apache.lucene.index.IndexWriter;
-import org.bibliome.util.obo.OBOUtils;
 import org.json.simple.JSONObject;
 import org.obo.dataadapter.OBOParseException;
 import org.obo.datamodel.OBOClass;
 import org.obo.datamodel.OBOSession;
 import org.obo.datamodel.Synonym;
 import org.obo.util.TermUtil;
+
+import fr.inra.maiage.bibliome.util.obo.OBOUtils;
 
 /**
  * Insert expansions from an OBO file into an expander index.

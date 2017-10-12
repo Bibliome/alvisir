@@ -23,10 +23,10 @@ import javax.xml.parsers.ParserConfigurationException;
 import org.apache.lucene.search.IndexSearcher;
 import org.apache.lucene.search.Query;
 import org.apache.lucene.search.TopDocs;
-import org.bibliome.util.Timer;
-import org.bibliome.util.fragments.Fragment;
 import org.xml.sax.SAXException;
 
+import fr.inra.maiage.bibliome.util.Timer;
+import fr.inra.maiage.bibliome.util.fragments.Fragment;
 import fr.inra.mig_bibliome.alvisir.core.expand.AlvisIRQueryNodeExpander;
 import fr.inra.mig_bibliome.alvisir.core.expand.ExpanderException;
 import fr.inra.mig_bibliome.alvisir.core.expand.ExpansionResult;

@@ -1,6 +1,6 @@
 package fr.inra.mig_bibliome.alvisir.core.facet;
 
-import org.bibliome.util.count.Count;
+import fr.inra.maiage.bibliome.util.count.Count;
 
 /**
  * Term collected in a facet.

@@ -7,9 +7,9 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 
-import org.bibliome.util.fragments.Fragment;
-import org.bibliome.util.fragments.FragmentCollection;
-import org.bibliome.util.fragments.SimpleMutableFragment;
+import fr.inra.maiage.bibliome.util.fragments.Fragment;
+import fr.inra.maiage.bibliome.util.fragments.FragmentCollection;
+import fr.inra.maiage.bibliome.util.fragments.SimpleMutableFragment;
 
 /**
  * Snippet for a field.

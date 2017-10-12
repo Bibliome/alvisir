@@ -37,7 +37,6 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactoryConfigurationError;
 
 import org.apache.commons.io.IOUtils;
-import org.bibliome.util.xml.XMLUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -45,6 +44,7 @@ import org.xml.sax.SAXException;
 
 import com.sun.jersey.api.NotFoundException;
 
+import fr.inra.maiage.bibliome.util.xml.XMLUtils;
 import fr.inra.mig_bibliome.alvisir.core.ResultXMLSerializer;
 import fr.inra.mig_bibliome.alvisir.core.SearchConfig;
 import fr.inra.mig_bibliome.alvisir.core.SearchConfigException;

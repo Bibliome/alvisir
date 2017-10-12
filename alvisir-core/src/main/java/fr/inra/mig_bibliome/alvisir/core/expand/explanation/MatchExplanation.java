@@ -7,10 +7,10 @@ import org.apache.lucene.search.Query;
 import org.apache.lucene.search.TotalHitCountCollector;
 import org.apache.lucene.search.spans.SpanQuery;
 import org.apache.lucene.search.spans.Spans;
-import org.bibliome.util.fragments.Fragment;
-import org.bibliome.util.fragments.SimpleFragment;
-import org.bibliome.util.fragments.SimpleMutableFragment;
 
+import fr.inra.maiage.bibliome.util.fragments.Fragment;
+import fr.inra.maiage.bibliome.util.fragments.SimpleFragment;
+import fr.inra.maiage.bibliome.util.fragments.SimpleMutableFragment;
 import fr.inra.mig_bibliome.alvisir.core.AlvisIRIndex;
 import fr.inra.mig_bibliome.alvisir.core.FieldOptions;
 import fr.inra.mig_bibliome.alvisir.core.SearchConfig;

@@ -6,8 +6,7 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 
-import org.bibliome.util.Strings;
-
+import fr.inra.maiage.bibliome.util.Strings;
 import fr.inra.mig_bibliome.alvisir.core.query.AlvisIRAnyQueryNode;
 import fr.inra.mig_bibliome.alvisir.core.query.AlvisIRPrefixQueryNode;
 import fr.inra.mig_bibliome.alvisir.core.query.AlvisIRQueryNode;

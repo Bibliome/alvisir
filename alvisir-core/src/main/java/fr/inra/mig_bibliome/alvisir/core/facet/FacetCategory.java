@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import org.bibliome.util.count.Stats;
+import fr.inra.maiage.bibliome.util.count.Stats;
 
 /**
  * Search facet category.

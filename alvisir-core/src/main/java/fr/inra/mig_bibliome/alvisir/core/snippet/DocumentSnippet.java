@@ -9,8 +9,8 @@ import java.util.Set;
 import java.util.TreeMap;
 
 import org.apache.lucene.search.ScoreDoc;
-import org.bibliome.util.defaultmap.DefaultMap;
 
+import fr.inra.maiage.bibliome.util.defaultmap.DefaultMap;
 import fr.inra.mig_bibliome.alvisir.core.expand.explanation.MatchExplanation;
 import fr.inra.mig_bibliome.alvisir.core.facet.FacetCategory;
 import fr.inra.mig_bibliome.alvisir.core.facet.FacetSpecification;

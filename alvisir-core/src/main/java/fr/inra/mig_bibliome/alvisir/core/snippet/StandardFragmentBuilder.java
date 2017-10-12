@@ -1,7 +1,7 @@
 package fr.inra.mig_bibliome.alvisir.core.snippet;
 
-import org.bibliome.util.fragments.Fragment;
-import org.bibliome.util.fragments.SimpleFragment;
+import fr.inra.maiage.bibliome.util.fragments.Fragment;
+import fr.inra.maiage.bibliome.util.fragments.SimpleFragment;
 
 /**
  * Standard fragment builders.

@@ -9,7 +9,8 @@ import org.apache.lucene.document.Document;
 import org.apache.lucene.document.Field;
 import org.apache.lucene.document.Fieldable;
 import org.apache.lucene.index.IndexWriter;
-import org.bibliome.util.Iterators;
+
+import fr.inra.maiage.bibliome.util.Iterators;
 
 /**
  * Document indexer.

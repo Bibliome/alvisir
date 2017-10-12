@@ -18,10 +18,10 @@ import org.apache.lucene.search.PrefixQuery;
 import org.apache.lucene.search.spans.SpanMultiTermQueryWrapper;
 import org.apache.lucene.search.spans.SpanQuery;
 import org.apache.lucene.search.spans.Spans;
-import org.bibliome.util.fragments.Fragment;
-import org.bibliome.util.fragments.FragmentCollection;
-import org.bibliome.util.fragments.SimpleFragment;
 
+import fr.inra.maiage.bibliome.util.fragments.Fragment;
+import fr.inra.maiage.bibliome.util.fragments.FragmentCollection;
+import fr.inra.maiage.bibliome.util.fragments.SimpleFragment;
 import fr.inra.mig_bibliome.alvisir.core.AlvisIRIndex;
 import fr.inra.mig_bibliome.alvisir.core.SearchConfig;
 import fr.inra.mig_bibliome.alvisir.core.expand.explanation.MatchExplanation;

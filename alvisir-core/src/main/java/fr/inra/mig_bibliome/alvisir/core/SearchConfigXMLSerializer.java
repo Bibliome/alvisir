@@ -13,14 +13,14 @@ import javax.xml.parsers.ParserConfigurationException;
 import org.apache.lucene.index.IndexReader;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
-import org.bibliome.util.Strings;
-import org.bibliome.util.xml.XMLUtils;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 import org.xml.sax.SAXException;
 
+import fr.inra.maiage.bibliome.util.Strings;
+import fr.inra.maiage.bibliome.util.xml.XMLUtils;
 import fr.inra.mig_bibliome.alvisir.core.expand.ExpanderException;
 import fr.inra.mig_bibliome.alvisir.core.expand.NullTextExpander;
 import fr.inra.mig_bibliome.alvisir.core.expand.QueryNodeExpanderFactory;

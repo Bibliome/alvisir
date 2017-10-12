@@ -30,19 +30,19 @@ import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
 import org.apache.lucene.search.Query;
-import org.bibliome.util.Timer;
-import org.bibliome.util.fragments.DOMBuilderFragmentTagIterator;
-import org.bibliome.util.fragments.Fragment;
-import org.bibliome.util.fragments.FragmentComparator;
-import org.bibliome.util.fragments.FragmentTag;
-import org.bibliome.util.fragments.FragmentTagIterator;
-import org.bibliome.util.fragments.SimpleFragment;
-import org.bibliome.util.mappers.ParamMapper;
-import org.bibliome.util.xml.XMLUtils;
 import org.w3c.dom.DOMException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import fr.inra.maiage.bibliome.util.Timer;
+import fr.inra.maiage.bibliome.util.fragments.DOMBuilderFragmentTagIterator;
+import fr.inra.maiage.bibliome.util.fragments.Fragment;
+import fr.inra.maiage.bibliome.util.fragments.FragmentComparator;
+import fr.inra.maiage.bibliome.util.fragments.FragmentTag;
+import fr.inra.maiage.bibliome.util.fragments.FragmentTagIterator;
+import fr.inra.maiage.bibliome.util.fragments.SimpleFragment;
+import fr.inra.maiage.bibliome.util.mappers.ParamMapper;
+import fr.inra.maiage.bibliome.util.xml.XMLUtils;
 import fr.inra.mig_bibliome.alvisir.core.expand.ExpansionResult;
 import fr.inra.mig_bibliome.alvisir.core.expand.explanation.AnyMatchExplanation;
 import fr.inra.mig_bibliome.alvisir.core.expand.explanation.CompositeExpansionExplanation;

@@ -12,8 +12,8 @@ import org.apache.lucene.analysis.miscellaneous.SingleTokenTokenStream;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.document.Field;
 import org.apache.lucene.index.IndexWriter;
-import org.bibliome.util.Strings;
 
+import fr.inra.maiage.bibliome.util.Strings;
 import fr.inra.mig_bibliome.alvisir.core.AlvisIRConstants;
 import fr.inra.mig_bibliome.alvisir.core.index.NormalizationOptions;
 

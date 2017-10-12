@@ -14,12 +14,12 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactoryConfigurationError;
 
-import org.bibliome.util.Strings;
-import org.bibliome.util.Timer;
-import org.bibliome.util.clio.CLIOException;
-import org.bibliome.util.clio.CLIOParser;
-import org.bibliome.util.clio.CLIOption;
-import org.bibliome.util.xml.XMLUtils;
+import fr.inra.maiage.bibliome.util.Strings;
+import fr.inra.maiage.bibliome.util.Timer;
+import fr.inra.maiage.bibliome.util.clio.CLIOException;
+import fr.inra.maiage.bibliome.util.clio.CLIOParser;
+import fr.inra.maiage.bibliome.util.clio.CLIOption;
+import fr.inra.maiage.bibliome.util.xml.XMLUtils;
 
 /**
  * Command line search.

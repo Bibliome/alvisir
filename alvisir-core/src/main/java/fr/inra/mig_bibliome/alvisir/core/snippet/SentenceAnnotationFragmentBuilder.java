@@ -7,9 +7,9 @@ import org.apache.lucene.index.Term;
 import org.apache.lucene.search.spans.SpanQuery;
 import org.apache.lucene.search.spans.SpanTermQuery;
 import org.apache.lucene.search.spans.Spans;
-import org.bibliome.util.fragments.Fragment;
-import org.bibliome.util.fragments.SimpleFragment;
 
+import fr.inra.maiage.bibliome.util.fragments.Fragment;
+import fr.inra.maiage.bibliome.util.fragments.SimpleFragment;
 import fr.inra.mig_bibliome.alvisir.core.expand.explanation.PayloadDecoder;
 
 /**

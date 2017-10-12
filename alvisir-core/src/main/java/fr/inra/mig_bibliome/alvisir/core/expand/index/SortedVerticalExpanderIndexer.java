@@ -7,10 +7,11 @@ import java.util.logging.Logger;
 
 import org.apache.lucene.document.Document;
 import org.apache.lucene.index.IndexWriter;
-import org.bibliome.util.Iterators;
-import org.bibliome.util.filelines.FileLines;
-import org.bibliome.util.filelines.InvalidFileLineEntry;
-import org.bibliome.util.streams.SourceStream;
+
+import fr.inra.maiage.bibliome.util.Iterators;
+import fr.inra.maiage.bibliome.util.filelines.FileLines;
+import fr.inra.maiage.bibliome.util.filelines.InvalidFileLineEntry;
+import fr.inra.maiage.bibliome.util.streams.SourceStream;
 
 /**
  * Insert expansions from a TSV file.

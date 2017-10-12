@@ -10,10 +10,9 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
-import org.bibliome.util.fragments.DataFragment;
-import org.bibliome.util.fragments.Fragment;
-import org.bibliome.util.fragments.FragmentComparator;
-
+import fr.inra.maiage.bibliome.util.fragments.DataFragment;
+import fr.inra.maiage.bibliome.util.fragments.Fragment;
+import fr.inra.maiage.bibliome.util.fragments.FragmentComparator;
 import fr.inra.mig_bibliome.alvisir.core.expand.explanation.MatchExplanation;
 
 /**

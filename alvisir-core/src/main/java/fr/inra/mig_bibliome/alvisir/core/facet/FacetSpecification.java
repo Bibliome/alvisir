@@ -3,7 +3,7 @@ package fr.inra.mig_bibliome.alvisir.core.facet;
 import java.util.Collections;
 import java.util.List;
 
-import org.bibliome.util.filters.Filter;
+import fr.inra.maiage.bibliome.util.filters.Filter;
 
 /**
  * Facet specification.
