@@ -26,7 +26,7 @@ see implementation details http://jersey.java.net/nonav/documentation/latest/jax
     
     <context-param>
         <param-name>configPath</param-name>
-        <param-value>/home/rbossy/code/alvisir/alvisir-web/test/AlvisIR/UIConfig.xml</param-value>
+        <param-value></param-value>
     </context-param>
     
 </web-app>
