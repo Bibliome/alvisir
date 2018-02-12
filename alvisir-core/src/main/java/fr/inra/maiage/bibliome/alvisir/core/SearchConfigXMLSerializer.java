@@ -254,7 +254,7 @@ public class SearchConfigXMLSerializer {
 		FacetLabelFactory labelFactory = getFacetLabelFactory(config, elt);
 //		System.err.println("labelFactory = " + labelFactory);
 		String queryFieldName = XMLUtils.getAttribute(elt, AlvisIRConstants.XML_SEARCH_FACET_QUERY_FIELD, fieldName);
-		FacetSubQueryType subQueryType = getFacetSubQueryType(elt);
+		FacetSubQueryType subQueryType = getFacetSubQueryType(config, elt);
 //		System.err.println("subQueryType = " + subQueryType);
 		boolean labelQuery = XMLUtils.getBooleanAttribute(elt, AlvisIRConstants.XML_SEARCH_FACET_LABEL_QUERY, false);
 		String prefix = elt.getAttribute(AlvisIRConstants.XML_SEARCH_FACET_PREFIX);
@@ -290,7 +290,7 @@ public class SearchConfigXMLSerializer {
 		return labelFactory;
 	}
 
-	private static final FacetSubQueryType getFacetSubQueryType(Element elt) {
+	private static final FacetSubQueryType getFacetSubQueryType(SearchConfig search, Element elt) {
 		if (!elt.hasAttribute(AlvisIRConstants.XML_SEARCH_FACET_SUB_QUERY_TYPE)) {
 			return FacetSubQueryType.RAW;
 		}
@@ -301,7 +301,7 @@ public class SearchConfigXMLSerializer {
 		case "prefix": return FacetSubQueryType.PREFIX;
 		case "raw": return FacetSubQueryType.RAW;
 		}
-		return FacetSubQueryType.PHRASE;
+		return search.getQueryNodeExpanderFactory().getDefaultQueryNodeExpanderFactory();
 	}
 	
 	private static final FacetSort getFacetSort(Element elt) throws SearchConfigException {
