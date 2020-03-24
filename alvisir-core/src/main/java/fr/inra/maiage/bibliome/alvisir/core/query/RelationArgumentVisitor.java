@@ -76,9 +76,9 @@ final class RelationArgumentVisitor implements AlvisIRQueryNodeVisitor<Void,Stri
 		sb.append(relationQueryNode.getRelation());
 		sb.append('}');
 		RelationArgumentVisitor visitor = new RelationArgumentVisitor();
-		relationQueryNode.getLeft().accept(visitor, sb);
+		AlvisIRQueryNodeReducer.reduce(relationQueryNode.getLeft()).accept(visitor, sb);
 		sb.append('~');
-		relationQueryNode.getRight().accept(visitor, sb);
+		AlvisIRQueryNodeReducer.reduce(relationQueryNode.getRight()).accept(visitor, sb);
 //		System.err.println("sb = " + sb);
 		Term term = new Term(fieldName, sb.toString());
 		return new WildcardQuery(term);
