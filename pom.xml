@@ -15,6 +15,11 @@
     <module>alvisir-web</module>
   </modules>
   
+  <scm>
+    <developerConnection>scm:git:https://github.com/Bibliome/alvisir.git</developerConnection>
+    <tag>HEAD</tag>
+  </scm>
+
   <organization>
     <name>Institut National de la Recherche Agronomique</name>
     <url>http://mig.jouy.inra.fr/</url>
@@ -38,6 +43,17 @@
 	<configuration>
 	  <source>1.7</source>
 	  <target>1.7</target>
+	</configuration>
+      </plugin>
+
+      <plugin>
+	<groupId>org.apache.maven.plugins</groupId>
+	<artifactId>maven-release-plugin</artifactId>
+	<version>3.0.0-M1</version>
+	<configuration>
+	  <updateDependencies>false</updateDependencies>
+	  <autoVersionSubmodules>true</autoVersionSubmodules>
+	  <tagNameFormat>@{project.version}</tagNameFormat>
 	</configuration>
       </plugin>
     </plugins>
