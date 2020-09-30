@@ -52,25 +52,26 @@ public class Configuration {
 
     //
     private static Document readConfig(ServletContext context, String uiConfigPath) {
-
+    	Logger logger = Logger.getLogger(Configuration.class.getName());
+    	
         File configFile = new File(uiConfigPath);
 
         InputStream configIS = null;
         
         if (uiConfigPath == null) {
-            Logger.getLogger(Configuration.class.getName()).log(Level.SEVERE, "No configuration file specified!");
+            logger.log(Level.SEVERE, "No configuration file specified!");
             return null;
         }
         else if (!configFile.isAbsolute()) {
             //non-absolute path refer to package resource
-            Logger.getLogger(Configuration.class.getName()).log(Level.INFO, "retreiving internal config : {0}", uiConfigPath);
+            logger.log(Level.INFO, "retreiving internal config : {0}", uiConfigPath);
             configIS = context.getResourceAsStream("/" + uiConfigPath);
 
         }
         else if (configFile.exists()) {
             //absolute path refer to external file
             try {
-                Logger.getLogger(Configuration.class.getName()).log(Level.INFO, "retreiving external config : {0}", configFile.getAbsolutePath());
+                logger.log(Level.INFO, "retreiving external config : {0}", configFile.getAbsolutePath());
                 configIS = new FileInputStream(configFile);
             }
             catch (FileNotFoundException ex) {
@@ -79,7 +80,7 @@ public class Configuration {
         }
         if (configIS == null) {
             //absolute path refer to external file
-            Logger.getLogger(Configuration.class.getName()).log(Level.SEVERE, "Configuration file not found : {0}", configFile.getAbsolutePath());
+            logger.log(Level.SEVERE, "Configuration file not found : {0}", configFile.getAbsolutePath());
             return null;
         }
         try {
@@ -94,15 +95,15 @@ public class Configuration {
             return configDocument;
         }
         catch (SAXException ex) {
-            Logger.getLogger(Configuration.class.getName()).log(Level.SEVERE, "Can not read configuration in {0}", configFile.getAbsoluteFile());
+            logger.log(Level.SEVERE, "Can not read configuration in {0}", configFile.getAbsoluteFile());
             throw new RuntimeException(ex);
         }
         catch (IOException ex) {
-            Logger.getLogger(Configuration.class.getName()).log(Level.SEVERE, "Can not read configuration in {0}", configFile.getAbsoluteFile());
+            logger.log(Level.SEVERE, "Can not read configuration in {0}", configFile.getAbsoluteFile());
             throw new RuntimeException(ex);
         }
 		catch (ParserConfigurationException ex) {
-            Logger.getLogger(Configuration.class.getName()).log(Level.SEVERE, "Can not read configuration in {0}", configFile.getAbsoluteFile());
+            logger.log(Level.SEVERE, "Can not read configuration in {0}", configFile.getAbsoluteFile());
             throw new RuntimeException(ex);
 		}
     }
@@ -147,6 +148,7 @@ public class Configuration {
 
     // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
     private String getNodeAttributeValue(String path, String attributeName, boolean failIfNotFound, boolean filepath) {
+    	Logger logger = Logger.getLogger(Configuration.class.getName());
         String attributeValue = null;
 
         XPath xPath = XPathFactory.newInstance().newXPath();
@@ -156,7 +158,7 @@ public class Configuration {
 
             if (node == null) {
                 if (failIfNotFound) {
-                    Logger.getLogger(Configuration.class.getName()).log(Level.SEVERE, "Invalid configuration : could not find " + path);
+                    logger.log(Level.SEVERE, "Invalid configuration : could not find " + path);
                     throw new IllegalArgumentException("Invalid configuration : could not find " + path);
                 }
                 else {
@@ -168,7 +170,7 @@ public class Configuration {
             if (e.hasAttribute(attributeName)) {
                 attributeValue = e.getAttribute(attributeName);
                 if (failIfNotFound && attributeValue == null) {
-                    Logger.getLogger(Configuration.class.getName()).log(Level.SEVERE, "could not find " + path + "/@" + attributeName);
+                    logger.log(Level.SEVERE, "could not find " + path + "/@" + attributeName);
                     throw new IllegalArgumentException("could not find " + path + "/@" + attributeName);
                 }
             }
@@ -183,12 +185,13 @@ public class Configuration {
             return attributeValue;
         }
         catch (XPathExpressionException ex) {
-            Logger.getLogger(Configuration.class.getName()).log(Level.SEVERE, "Error while reading configuration: " + path + "/@" + attributeName);
+            logger.log(Level.SEVERE, "Error while reading configuration: " + path + "/@" + attributeName);
             throw new RuntimeException(ex.getMessage());
         }
     }
 
     private List<String> getNodesAttributeValue(String path, String valueAttributeId) {
+    	Logger logger = Logger.getLogger(Configuration.class.getName());
         List<String> attributeValueList = new ArrayList<>();
         XPath xPath = XPathFactory.newInstance().newXPath();
         try {
@@ -207,12 +210,13 @@ public class Configuration {
             }
             return attributeValueList;
         } catch (XPathExpressionException ex) {
-            Logger.getLogger(Configuration.class.getName()).log(Level.SEVERE, "Error while reading configuration: " + path);
+            logger.log(Level.SEVERE, "Error while reading configuration: " + path);
             throw new RuntimeException(ex.getMessage());
         }
     }
 
     private Map<String, String> getNodesAttributeValue(String path, String nameAttributeId, String valueAttributeId) {
+    	Logger logger = Logger.getLogger(Configuration.class.getName());
         Map<String, String> attributeValueMap = new HashMap<>();
 
         XPath xPath = XPathFactory.newInstance().newXPath();
@@ -235,7 +239,7 @@ public class Configuration {
             return attributeValueMap;
 
         } catch (XPathExpressionException ex) {
-            Logger.getLogger(Configuration.class.getName()).log(Level.SEVERE, "Error while reading configuration: " + path);
+            logger.log(Level.SEVERE, "Error while reading configuration: " + path);
             throw new RuntimeException(ex.getMessage());
         }
     }

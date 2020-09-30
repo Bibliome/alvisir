@@ -63,6 +63,7 @@ public class QueryServices {
     private Configuration getConfig() {
         //Get instance specific config file (configured with a web context parameter)
         String uiConfigPath = context.getInitParameter(SearchConfigPath_ParamName);
+        Logger.getLogger(QueryServices.class.getName()).info("config value: '" + uiConfigPath + "'");
         if (uiConfigPath == null) {
             throw new IllegalArgumentException("The configuration of this instance is incomplete : Missing " + SearchConfigPath_ParamName + " parameter");
         }
