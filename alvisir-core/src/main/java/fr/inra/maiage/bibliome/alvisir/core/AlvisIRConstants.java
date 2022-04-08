@@ -155,6 +155,7 @@ public class AlvisIRConstants {
 	public static final String XML_EXPANDER_INDEXER_OBO_TYPE = "type";
 	public static final String XML_EXPANDER_INDEXER_OBO_JSON_PROPERTY = "json-property";
 	public static final String XML_EXPANDER_INDEXER_OBO_JSON_ROOT = "root-id";
+	public static final String XML_EXPANDER_INDEXER_OBO_ALL_PATHS = "expand-all-paths";
 	public static final String XML_EXPANDER_INDEXER_SORTED_VERTICAL = "sorted-vertical";
 	public static final String XML_EXPANDER_INDEXER_SORTED_VERTICAL_SOURCE = "source";
 	public static final String XML_EXPANDER_INDEXER_SORTED_VERTICAL_SYNONYM = "synonym";

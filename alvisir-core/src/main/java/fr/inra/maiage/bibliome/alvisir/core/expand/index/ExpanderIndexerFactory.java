@@ -122,6 +122,9 @@ public class ExpanderIndexerFactory {
 		if (elt.hasAttribute(AlvisIRConstants.XML_EXPANDER_INDEXER_OBO_TYPE)) {
 			result.setType(elt.getAttribute(AlvisIRConstants.XML_EXPANDER_INDEXER_OBO_TYPE));
 		}
+		if (elt.hasAttribute(AlvisIRConstants.XML_EXPANDER_INDEXER_OBO_ALL_PATHS)) {
+			result.setExpandAllPaths(XMLUtils.getBooleanAttribute(elt, AlvisIRConstants.XML_EXPANDER_INDEXER_OBO_ALL_PATHS, false));
+		}
 		for (Element child : XMLUtils.childrenElements(elt)) {
 			String tag = child.getTagName();
 			String content = child.getTextContent();
@@ -134,6 +137,9 @@ public class ExpanderIndexerFactory {
 					break;
 				case AlvisIRConstants.XML_EXPANDER_INDEXER_OBO_TYPE:
 					result.setType(content);
+					break;
+				case AlvisIRConstants.XML_EXPANDER_INDEXER_OBO_ALL_PATHS:
+					result.setExpandAllPaths(Strings.getBoolean(content, false));
 					break;
 				case AlvisIRConstants.XML_EXPANDER_INDEXER_OBO_JSON_PROPERTY:
 					if (!child.hasAttribute(AlvisIRConstants.XML_EXPANDER_INDEXER_OBO_JSON_ROOT)) {

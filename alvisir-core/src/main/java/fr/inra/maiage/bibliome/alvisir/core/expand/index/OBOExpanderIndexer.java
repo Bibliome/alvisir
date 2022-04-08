@@ -32,6 +32,7 @@ public class OBOExpanderIndexer extends ExpanderIndexer {
 	private String type;
 	private String jsonPropertyName;
 	private String jsonRoot;
+	private boolean expandAllPaths = false;
 	
 	public OBOExpanderIndexer() {
 	}
@@ -111,5 +112,9 @@ public class OBOExpanderIndexer extends ExpanderIndexer {
 	public void setJSONPropertyName(String jsonPropertyName, String jsonRoot) {
 		this.jsonPropertyName = jsonPropertyName;
 		this.jsonRoot = jsonRoot;
+	}
+
+	public void setExpandAllPaths(boolean expandAllPaths) {
+		this.expandAllPaths = expandAllPaths;
 	}
 }
