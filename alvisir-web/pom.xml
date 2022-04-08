@@ -5,11 +5,11 @@
   <parent>
     <groupId>fr.jouy.inra.maiage.bibliome</groupId>
     <artifactId>alvisir</artifactId>
-    <version>0.6</version>
+    <version>0.7-SNAPSHOT</version>
   </parent>
   <artifactId>alvisir-web</artifactId>
   <name>AlvisIR Web</name>
-  <version>0.6</version>
+  <version>0.7-SNAPSHOT</version>
   <packaging>war</packaging>
 
   <repositories>

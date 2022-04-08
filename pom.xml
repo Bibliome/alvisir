@@ -4,7 +4,7 @@
 
   <groupId>fr.jouy.inra.maiage.bibliome</groupId>
   <artifactId>alvisir</artifactId>
-  <version>0.6</version>
+  <version>0.7-SNAPSHOT</version>
   <name>AlvisIR</name>
   <packaging>pom</packaging>
 
