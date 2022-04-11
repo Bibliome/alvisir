@@ -50,6 +50,9 @@ public class OBOExpanderIndexer extends ExpanderIndexer {
 					addSynonym(doc, synonym.getText());
 				}
 				indexWriter.addDocument(doc);
+				if (!expandAllPaths) {
+					break;
+				}
 			}
 		}
 		if (jsonPropertyName != null) {
