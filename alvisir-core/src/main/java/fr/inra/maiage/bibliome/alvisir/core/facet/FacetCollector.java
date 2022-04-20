@@ -75,14 +75,22 @@ public class FacetCollector extends TermVectorMapper {
 			for (FacetCategory fc : activeFacets) {
 				FacetSpecification fs = fc.getSpecification();
 				FacetLabelFactory flf = fs.getLabelFactory();
-				if (fc.getSpecification().accept(term)) {
-					FacetTerm ft = fc.safeGet(term);
-					if (ft.get() == 0) {
-						String label = flf.getFacetLabel(term);
-						ft.setLabel(label);
+				if (fs.accept(term)) {
+					if (fc.containsKey(term)) {
+						FacetTerm ft = fc.get(term);
+						ft.incr(frequency);
+						ft.incrDocFreq(currentDoc);
 					}
-					ft.incr(frequency);
-					ft.incrDocFreq(currentDoc);
+					else {
+						FacetTerm ft = new FacetTerm(term);
+						String label = flf.getFacetLabel(term);
+						if (label != null) {
+							fc.put(term, ft);
+							ft.setLabel(label);
+							ft.incr(frequency);
+							ft.incrDocFreq(currentDoc);
+						}
+					}
 				}
 			}
 		}

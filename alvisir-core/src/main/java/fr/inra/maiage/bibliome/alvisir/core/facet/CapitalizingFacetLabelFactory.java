@@ -11,6 +11,9 @@ public class CapitalizingFacetLabelFactory implements FacetLabelFactory {
 	@Override
 	public String getFacetLabel(String text) throws Exception {
 		String raw = facetLabelFactory.getFacetLabel(text);
+		if (raw == null) {
+			return null;
+		}
 		StringBuilder result = new StringBuilder();
 		boolean sow = true;
 		for (int i = 0; i < raw.length(); ++i) {

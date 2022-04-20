@@ -19,7 +19,6 @@ public class RegexGroupFacetLabelFactory implements FacetLabelFactory {
 		if (m.find()) {
 			return m.group(labelGroup);
 		}
-		return text;
+		return null;
 	}
-
 }

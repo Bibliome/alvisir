@@ -11,6 +11,9 @@ public class LowerCaseFacetLabelFactory implements FacetLabelFactory {
 	@Override
 	public String getFacetLabel(String text) throws Exception {
 		String facetLabel = facetLabelFactory.getFacetLabel(text);
+		if (facetLabel == null) {
+			return null;
+		}
 		return facetLabel.toLowerCase();
 	}
 }

@@ -5,6 +5,6 @@ public enum NullFacetLabelFactory implements FacetLabelFactory {
 
 	@Override
 	public String getFacetLabel(String text) throws Exception {
-		return text;
+		return null;
 	}
 }

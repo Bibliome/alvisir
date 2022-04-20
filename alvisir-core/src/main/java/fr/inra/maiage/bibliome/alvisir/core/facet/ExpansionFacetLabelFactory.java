@@ -19,7 +19,7 @@ public class ExpansionFacetLabelFactory implements FacetLabelFactory {
 			label = textExpansionResult.getLabel();
 		}
 		else {
-			label = text;
+			label = null;
 		}
 		return label;
 	}
